@@ -267,7 +267,7 @@ public class Base_Class {
         }
     }
 
-    public void deleteUser(String loginName, int accountID) {
+    public void deleteUser(String loginName, int accountID) throws Exception {
         
 		Database_Class db = new Database_Class();
 		Connection conn = db.getConnection();	
@@ -298,7 +298,7 @@ public class Base_Class {
         
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         /**
          * Instantiate the GUI
