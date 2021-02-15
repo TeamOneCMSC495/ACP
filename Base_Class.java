@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Purpose: Hold the main method and manage the operations of the subordinate
@@ -175,7 +180,34 @@ public class Base_Class {
         }
     }
 
-    public void deleteUser() {
+    public void deleteUser(String loginName, int accountID) {
+        
+		Database_Class db = new Database_Class();
+		Connection conn = db.getConnection();			
+
+		try {		
+			
+			procedureCall = conn.prepareCall("{ CALL CMSC495.usp_DeleteUser(?, ?) }");
+			procedureCall.setString(1, loginName);
+			procedureCall.setInt(2, accountID);
+			procedureCall.executeQuery();				
+
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+
+			if (conn != null) {
+				conn.close();
+			}			
+			
+			if (procedureCall != null) {
+				procedureCall.close();
+			}
+
+		}
+        
     }
 
     public static void main(String[] args) {
