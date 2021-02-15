@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Purpose: Hold the main method and manage the operations of the subordinate
@@ -55,11 +58,54 @@ public class Base_Class {
     /**
      * Methods
      */
-    public void existingUserCheck() {
-//        if userName matches a userName in the database {
-//        returningUser = true;
-//    }
-    }
+    public void existingUserCheck(String loginName) throws Exception {
+    	
+		Database_Class db = new Database_Class();
+		Connection conn = db.getConnection();	
+    	PreparedStatement sql = null;  
+    	ResultSet resultSet = null;
+    	
+    	//remove leading and trailing space
+    	loginName = loginName.trim();
+    	
+    	returningUser = false;
+    	
+    	try {
+    	
+		sql = conn.prepareStatement("SELECT LoginID FROM CMSC495.Login WHERE LoginName = ?");
+		sql.setString(1, loginName);
+		resultSet = sql.executeQuery();    
+		
+		while (resultSet.next()) {
+
+			returningUser = true;		
+
+		}		
+		
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+
+			if (conn != null) {
+				conn.close();
+			}			
+			
+			if (sql != null) {
+				sql.close();
+			}
+			
+			if (resultSet != null) {
+				resultSet.close();
+			}				
+
+		}   
+    	
+    	//debug
+    	//System.out.println(returningUser);
+    	
+  }	
 
     public void validateWelcomeMessage() {
         if (returningUser == true) {
@@ -153,7 +199,7 @@ public class Base_Class {
         }
     }
 
-    public void storeFormDataInSQLDatabase() {
+    public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String ccv, String email) throws Exception {
         if (validForm == true) {
             // send userName to the database;
             // send loginCount  to the database;
@@ -164,6 +210,47 @@ public class Base_Class {
             // send ccDate to the database;
             // send cvvCode to the database;
             // send password to the database;
+			
+			Database_Class db = new Database_Class();
+			Connection conn = db.getConnection();	
+			CallableStatement procedureCall = null;
+
+			try {
+
+				java.sql.Date sql_CCExpirationDate = new java.sql.Date( ccExpirationDate.getTime()); //Need to convert Credit Card expiration date to an SQL acceptable date
+
+				procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
+				procedureCall.setString(1, loginName);
+				procedureCall.setString(2, passWord);			
+				procedureCall.setString(3, firstName);
+				procedureCall.setString(4, lastName);			
+				procedureCall.setString(5, middleInitial);	
+				procedureCall.setString(6, ccNumber);					
+				procedureCall.setDate(7, sql_CCExpirationDate);	
+				procedureCall.setString(8, ccv);			
+				procedureCall.setString(9, email);	
+				procedureCall.registerOutParameter(10, Types.INTEGER);  //PersonID
+				procedureCall.registerOutParameter(11, Types.INTEGER); //AccountID
+				procedureCall.executeQuery();
+
+				// Get the identity value of the new account			
+				int accountID = procedureCall.getInt(11);
+
+			} catch (SQLException e) {
+				throw e;
+			} catch (Exception e) {
+				throw e;
+			} finally {
+
+				if (conn != null) {
+					conn.close();
+				}
+
+				if (procedureCall != null) {
+					procedureCall.close();
+				}				
+
+			}			
         }
     }
 
@@ -183,7 +270,8 @@ public class Base_Class {
     public void deleteUser(String loginName, int accountID) {
         
 		Database_Class db = new Database_Class();
-		Connection conn = db.getConnection();			
+		Connection conn = db.getConnection();	
+	    CallableStatement procedureCall = null;
 
 		try {		
 			
