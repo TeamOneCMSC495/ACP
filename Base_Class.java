@@ -186,7 +186,7 @@ public class Base_Class {
         }
     }
 
-    public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String ccv, String email) throws Exception {
+    public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String email) throws Exception {
         if (validForm == true) {
             // send userName to the database;
             // send loginCount  to the database;
