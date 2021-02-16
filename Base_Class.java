@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Calendar;
 import java.util.Date;
-
+import com.codahale.passpol.Status;
 /**
  * Purpose: Hold the main method and manage the operations of the subordinate
  * classes UMGC CMSC 495 Special Topics Developer: Team 1 Date: February 12,
@@ -169,28 +169,15 @@ public class Base_Class {
                     JOptionPane.showMessageDialog(null, "Invalid credit card date format, the date format is DD MMM YYYY");
                     rejectForm = true;
                 }
-            } else if (cvvCode > 0) {
-                String cvvString = Integer.toString(cvvCode);
-                Pattern regex = Pattern.compile("[^0-90-90-9]");
-                Matcher matcher = regex.matcher(cvvString);
-                boolean matches = matcher.matches();
-                if (matches == false) {
-                    JOptionPane.showMessageDialog(null, "Invalid CVV Code");
-                    rejectForm = true;
-                }
-            } else if (cvvCode <= 0) {
-                JOptionPane.showMessageDialog(null, "Invalid CVV Code");
-                rejectForm = true;
             } else if (password.length() <= 7) {
                 JOptionPane.showMessageDialog(null, "Invalid password, password must be at least 8 characters");
                 rejectForm = true;
             } else if (password.length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid password, password must be less than or equal to 128 characters");
                 rejectForm = true;
-            } else if (password.length() >= 8 || password.length() <= 128) {
-                // query the database to see if it is in the list of common passwords
-                // if it is: JOptionPane.showMessageDialog(null, "Invalid password, password is found on a list of common passwords");
-                // and rejectForm = true;
+            } else if (Security_Class.testPassword(password)==Status.BREACHED) {
+		JOptionPane.showMessageDialog(null, "Invalid password, password is found on a list of common passwords");
+                rejectForm = true;
             } else {
                 validForm = true;
                 JOptionPane.showMessageDialog(null, "Welcome " + userName);
@@ -315,7 +302,8 @@ public class Base_Class {
         /**
          * Instantiate the security features
          */
-        Security_Class sc = new Security_Class();
+	//Currently all Security_Class methods are public static
+        //Security_Class sc = new Security_Class();
 
         /**
          * Instantiate the Email_Engine
