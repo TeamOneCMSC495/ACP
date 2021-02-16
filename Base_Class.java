@@ -206,22 +206,21 @@ public class Base_Class {
 
 				java.sql.Date sql_CCExpirationDate = new java.sql.Date( ccExpirationDate.getTime()); //Need to convert Credit Card expiration date to an SQL acceptable date
 
-				procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
+				procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
 				procedureCall.setString(1, loginName);
 				procedureCall.setString(2, passWord);			
 				procedureCall.setString(3, firstName);
 				procedureCall.setString(4, lastName);			
 				procedureCall.setString(5, middleInitial);	
 				procedureCall.setString(6, ccNumber);					
-				procedureCall.setDate(7, sql_CCExpirationDate);	
-				procedureCall.setString(8, ccv);			
-				procedureCall.setString(9, email);	
-				procedureCall.registerOutParameter(10, Types.INTEGER);  //PersonID
-				procedureCall.registerOutParameter(11, Types.INTEGER); //AccountID
+				procedureCall.setDate(7, sql_CCExpirationDate);			
+				procedureCall.setString(8, email);	
+				procedureCall.registerOutParameter(9, Types.INTEGER);  //PersonID
+				procedureCall.registerOutParameter(10, Types.INTEGER); //AccountID
 				procedureCall.executeQuery();
 
 				// Get the identity value of the new account			
-				int accountID = procedureCall.getInt(11);
+				int accountID = procedureCall.getInt(10);
 
 			} catch (SQLException e) {
 				throw e;
