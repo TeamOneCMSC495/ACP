@@ -1,0 +1,16 @@
+/*
+Block style comment
+*/
+
+-- Single line comments require one space follow the two dashes
+
+-- Create database
+CREATE Schema CMSC495;
+
+-- Create table
+CREATE TABLE CMSC495.person (
+  PersonID int NOT NULL AUTO_INCREMENT,
+  LastName varchar(45) DEFAULT NULL,
+  FirstName varchar(45) DEFAULT NULL,
+  PRIMARY KEY (PersonID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

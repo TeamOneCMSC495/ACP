@@ -1,16 +1,16 @@
+package com.acp;
 
 /** Purpose: Hold the class controlling the SQL database
  *  UMGC CMSC 495 Special Topics
  *  Developer: Team 1
  *  Date: February 12, 2021
  */
-
+// import statements
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database_Class {
-
 
     /**
      * Instance and Field variables
@@ -30,7 +30,6 @@ public class Database_Class {
     public Database_Class() {
     }
     
-
 	public Connection getConnection() throws SQLException {
 
 		Connection conn = null;
@@ -49,8 +48,6 @@ public class Database_Class {
 
 		return conn;
 
-
-	}
 	}    
 
     /**
