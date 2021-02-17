@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Calendar;
 import java.util.Date;
-
+import com.codahale.passpol.Status;
 /**
  * Purpose: Hold the main method and manage the operations of the subordinate
  * classes UMGC CMSC 495 Special Topics Developer: Team 1 Date: February 12,
@@ -169,28 +169,15 @@ public class Base_Class {
                     JOptionPane.showMessageDialog(null, "Invalid credit card date format, the date format is DD MMM YYYY");
                     rejectForm = true;
                 }
-            } else if (cvvCode > 0) {
-                String cvvString = Integer.toString(cvvCode);
-                Pattern regex = Pattern.compile("[^0-90-90-9]");
-                Matcher matcher = regex.matcher(cvvString);
-                boolean matches = matcher.matches();
-                if (matches == false) {
-                    JOptionPane.showMessageDialog(null, "Invalid CVV Code");
-                    rejectForm = true;
-                }
-            } else if (cvvCode <= 0) {
-                JOptionPane.showMessageDialog(null, "Invalid CVV Code");
-                rejectForm = true;
             } else if (password.length() <= 7) {
                 JOptionPane.showMessageDialog(null, "Invalid password, password must be at least 8 characters");
                 rejectForm = true;
             } else if (password.length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid password, password must be less than or equal to 128 characters");
                 rejectForm = true;
-            } else if (password.length() >= 8 || password.length() <= 128) {
-                // query the database to see if it is in the list of common passwords
-                // if it is: JOptionPane.showMessageDialog(null, "Invalid password, password is found on a list of common passwords");
-                // and rejectForm = true;
+            } else if (Security_Class.testPassword(password)==Status.BREACHED) {
+		JOptionPane.showMessageDialog(null, "Invalid password, password is found on a list of common passwords");
+                rejectForm = true;
             } else {
                 validForm = true;
                 JOptionPane.showMessageDialog(null, "Welcome " + userName);
@@ -199,7 +186,7 @@ public class Base_Class {
         }
     }
 
-    public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String ccv, String email) throws Exception {
+    public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String email) throws Exception {
         if (validForm == true) {
             // send userName to the database;
             // send loginCount  to the database;
@@ -219,22 +206,21 @@ public class Base_Class {
 
 				java.sql.Date sql_CCExpirationDate = new java.sql.Date( ccExpirationDate.getTime()); //Need to convert Credit Card expiration date to an SQL acceptable date
 
-				procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
+				procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
 				procedureCall.setString(1, loginName);
 				procedureCall.setString(2, passWord);			
 				procedureCall.setString(3, firstName);
 				procedureCall.setString(4, lastName);			
 				procedureCall.setString(5, middleInitial);	
 				procedureCall.setString(6, ccNumber);					
-				procedureCall.setDate(7, sql_CCExpirationDate);	
-				procedureCall.setString(8, ccv);			
-				procedureCall.setString(9, email);	
-				procedureCall.registerOutParameter(10, Types.INTEGER);  //PersonID
-				procedureCall.registerOutParameter(11, Types.INTEGER); //AccountID
+				procedureCall.setDate(7, sql_CCExpirationDate);			
+				procedureCall.setString(8, email);	
+				procedureCall.registerOutParameter(9, Types.INTEGER);  //PersonID
+				procedureCall.registerOutParameter(10, Types.INTEGER); //AccountID
 				procedureCall.executeQuery();
 
 				// Get the identity value of the new account			
-				int accountID = procedureCall.getInt(11);
+				int accountID = procedureCall.getInt(10);
 
 			} catch (SQLException e) {
 				throw e;
@@ -315,7 +301,8 @@ public class Base_Class {
         /**
          * Instantiate the security features
          */
-        Security_Class sc = new Security_Class();
+	//Currently all Security_Class methods are public static
+        //Security_Class sc = new Security_Class();
 
         /**
          * Instantiate the Email_Engine

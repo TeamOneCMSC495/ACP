@@ -11,15 +11,25 @@ import java.sql.SQLException;
 
 public class Database_Class {
 
-	// Variables
+
+    /**
+     * Instance and Field variables
+     */
+    private Object listAccountNumbers;
+    private Object maintainAuditLog;
+    private Object exportWholeDatabaseAsCSV;
+    private Object exportSingleUserAsCSV;
+    
 	private String url = "jdbc:mysql://localhost:3306/MySql";
 	private String username = "root";
-	private String password = "@@t45zr)11";
+	private String password = "@@t45zr)11";    
 
-	// Constructor
-	public Database_Class() {
-
-	}
+    /**
+     * Constructors
+     */
+    public Database_Class() {
+    }
+    
 
 	public Connection getConnection() throws SQLException {
 
@@ -39,27 +49,37 @@ public class Database_Class {
 
 		return conn;
 
-	}
 
-	public void maintainAuditLog() {		
 	}
+	}    
 
-	public void exportWholeDatabaseAsCSV() {		
-	}
+    /**
+     * Getters
+     */
+    /**
+     * Setters
+     */
+    /**
+     * Methods
+     */
+    public void maintainAuditLog() {
+    }
 
-	public void exportSingleUserAsCSV() {		
-	}
+    public void exportWholeDatabaseAsCSV() {
+    }
 
-	public void specifyExportFilepath() {		
-	}
+    public void exportSingleUserAsCSV() {
+    }
 
-	public void exportEmailContacts() {		
-	}
+    public void specifyExportFilepath() {
+    }
 
-	public void deleteSelectedUser() {		
-	}
+    public void exportEmailContacts() {
+    }
 
-	public void filterData() {		
-	}
+    public void deleteSelectedUser() {
+    }
 
+    public void filterData() {
+    }
 }
