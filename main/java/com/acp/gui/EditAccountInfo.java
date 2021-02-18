@@ -1,5 +1,7 @@
 package com.acp.gui;
 
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -58,6 +60,11 @@ public class EditAccountInfo extends javax.swing.JFrame {
         passwordLabel.setText("Password");
 
         confirmEditButton.setText("Confirm Edit");
+        confirmEditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmEditButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,6 +126,11 @@ public class EditAccountInfo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void confirmEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEditButtonActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Account Updated");
+    }//GEN-LAST:event_confirmEditButtonActionPerformed
 
     /**
      * @param args the command line arguments
