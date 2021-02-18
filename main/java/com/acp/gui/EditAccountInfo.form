@@ -140,6 +140,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirm Edit"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmEditButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
