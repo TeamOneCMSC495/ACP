@@ -1,3 +1,6 @@
+package com.acp;
+
+
 
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
@@ -309,6 +312,12 @@ public class Base_Class {
          */
         Email_Engine ee = new Email_Engine();
 
+        
+                java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new com.acp.gui.AccountCreationPortal().setVisible(true);
+            }
+        });
     }
 
 }

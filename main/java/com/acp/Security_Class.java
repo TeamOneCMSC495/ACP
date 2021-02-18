@@ -1,3 +1,5 @@
+package com.acp;
+
 
 /** Purpose: Hold the class containing the application security features
  *  UMGC CMSC 495 Special Topics
@@ -58,8 +60,12 @@ public class Security_Class {
     //check user's submitted password for login against stored hash retrieved from database
     //returns true if password matches hash, otherwise false
     public static Boolean checkCorrectPassword(String password, String hash){
-        Argon2 argon2 = Argon2Factory.create(Argon2Types.ARGON2id);
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         boolean success = argon2.verify(hash, password);
         return success;
     }
+    
+//    public static void main(String args[]){
+//        System.out.println("security class compiled");
+//    }
 }
