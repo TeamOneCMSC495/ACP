@@ -1,5 +1,3 @@
-package com.acp;
-
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.LocalTime;
