@@ -1,3 +1,5 @@
+package com.acp;
+
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,16 +26,16 @@ public class Base_Class {
      * Instance and Field variables
      */
     public Boolean returningUser = false;
-//    public String userName;
+    public String userName;
     public int loginCount = 0;
     public int loyaltyPoints = 0;
     public String localDateString;
     public String localTimeString;
     public Boolean rejectForm = false;
-//    public int creditCardNumber = 0;
-//    public String ccDate;
-//    public int cvvCode = 999;
-//    public String password;
+    public int creditCardNumber = 0;
+    public String ccDate;
+    public int cvvCode = 999;
+    public String password;
     public Boolean validForm = false;
 
     /**
@@ -127,6 +129,64 @@ public class Base_Class {
         localTimeString = localTime.toString();
     }
 
+    public void recordFormData() {
+        // use this to obtain data from the form
+    }
+
+    public void validateFormData() {
+        if (returningUser == false) {
+            if (userName.length() == 0) {
+                JOptionPane.showMessageDialog(null, "Invalid userName, userName cannot be blank");
+                rejectForm = true;
+            } else if (userName.length() >= 129) {
+                JOptionPane.showMessageDialog(null, "Invalid userName, userName cannot be more than 128 characters");
+                rejectForm = true;
+            } else if (creditCardNumber >= 0) {
+                int ccn = String.valueOf(creditCardNumber).length();
+                if (ccn <= 15) {
+                    JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number must be 16 digits");
+                    rejectForm = true;
+                } else if (ccn >= 17) {
+                    JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number must be 16 digits");
+                    rejectForm = true;
+                } else if (ccn > 0) {
+                    String cCNString = Integer.toString(ccn);
+                    Pattern regex = Pattern.compile("[^A-Za-z0-9]");
+                    Matcher matcher = regex.matcher(cCNString);
+                    boolean matches = matcher.matches();
+                    if (cCNString.contains(".")) {
+                        JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a decimal");
+                        rejectForm = true;
+                    } else if (matches == false) {
+                        JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a special characters");
+                        rejectForm = true;
+                    }
+                }
+            } else if (ccDate.length() > 0) {
+                Pattern regex = Pattern.compile("[^0-90-9]" + " " + "[^A-ZA-ZA-Z]" + " " + "[^0-90-90-90-9]");
+                Matcher matcher = regex.matcher(ccDate);
+                boolean matches = matcher.matches();
+                if (matches == false) {
+                    JOptionPane.showMessageDialog(null, "Invalid credit card date format, the date format is DD MMM YYYY");
+                    rejectForm = true;
+                }
+            } else if (password.length() <= 7) {
+                JOptionPane.showMessageDialog(null, "Invalid password, password must be at least 8 characters");
+                rejectForm = true;
+            } else if (password.length() >= 129) {
+                JOptionPane.showMessageDialog(null, "Invalid password, password must be less than or equal to 128 characters");
+                rejectForm = true;
+            } else if (Security_Class.testPassword(password) == Status.BREACHED) {
+                JOptionPane.showMessageDialog(null, "Invalid password, password is found on a list of common passwords");
+                rejectForm = true;
+            } else {
+                validForm = true;
+                JOptionPane.showMessageDialog(null, "Welcome " + userName);
+            }
+
+        }
+    }
+
     public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String email) throws Exception {
         if (validForm == true) {
             // send userName to the database;
@@ -187,6 +247,13 @@ public class Base_Class {
         }
     }
 
+    public void assignAccountNumber() {
+        if (validForm == true) {
+            // query the database to find database length
+            // the account number is database length + 1
+        }
+    }
+
     public void deleteUser(String loginName, int accountID) throws Exception {
 
         Database_Class db = new Database_Class();
@@ -219,18 +286,14 @@ public class Base_Class {
     }
 
     public static void main(String[] args) throws Exception {
-        
-        /**
-         * Create the Account_Class object
-         */
-        Account_Class account = new Account_Class(userName, userEmail, firstName,
-            middleInitial, lastName, creditCardNumber, ccDate, cvvCode, password);
 
         /**
          * Instantiate the GUI
          */
-//        GUI gui = new GUI();
-
+        // constructor in GUI must provide the userName
+//        GUI gui = new GUI(userName, creditCardNumber);
+//        this.userName = userName;
+        //this.creditCardNumber = creditCardNumber;
         /**
          * Instantiate the Database_Class
          */
