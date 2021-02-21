@@ -7,6 +7,7 @@
  */
 package com.acp;
 
+import com.codahale.passpol.Status;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -20,21 +21,21 @@ public class Account_Class {
     /**
      * Instance and Field variables
      */
-    public Boolean returningUser = false;
-    public String userName;
-    public String firstName;
-    public String middleInitial;
-    public String lastName;
-    public String userEmail;
-    public int loginCount = 0;
-    public int loyaltyPoints = 0;
+    private Boolean returningUser = false;
+    private String userName;
+    private String firstName;
+    private String middleInitial;
+    private String lastName;
+    private String userEmail;
+    private int loginCount = 0;
+    private int loyaltyPoints = 0;
     public String localDateString;
     public String localTimeString;
     public Boolean rejectForm = false;
-    public int creditCardNumber = 0;
-    public String ccDate;
-    public int cvvCode = 999;
-    public String password;
+    private int creditCardNumber = 0;
+    private String ccDate;
+    private int cvvCode = 999;
+    private String password;
     public Boolean validForm = false;
 
     /**
@@ -68,30 +69,30 @@ public class Account_Class {
     }
 
     public void validateFormData() {
-        if (returningUser == false) {
-            if (userName.length() == 0) {
+        if (getReturningUser() == false) {
+            if (getUserName().length() == 0) {
                 JOptionPane.showMessageDialog(null, "Invalid userName, userName cannot be blank");
-                rejectForm = true;
-            } else if (userName.length() >= 129) {
+                setRejectForm((Boolean) true);
+            } else if (getUserName().length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid userName, userName cannot be more than 128 characters");
-                rejectForm = true;
-            } else if (firstName.length() >= 129) {
+                setRejectForm((Boolean) true);
+            } else if (getFirstName().length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid first name, first name cannot be more than 128 characters");
-                rejectForm = true;
-            } else if (middleInitial.length() >= 2) {
+                setRejectForm((Boolean) true);
+            } else if (getMiddleInitial().length() >= 2) {
                 JOptionPane.showMessageDialog(null, "Invalid middle initial, middle initial cannot be more than 1 character");
-                rejectForm = true;
-            } else if (lastName.length() >= 129) {
+                setRejectForm((Boolean) true);
+            } else if (getLastName().length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid last name, last name cannot be more than 128 characters");
-                rejectForm = true;
-            } else if (creditCardNumber >= 0) {
-                int ccn = String.valueOf(creditCardNumber).length();
+                setRejectForm((Boolean) true);
+            } else if (getCreditCardNumber() >= 0) {
+                int ccn = String.valueOf(getCreditCardNumber()).length();
                 if (ccn <= 15) {
                     JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number must be 16 digits");
-                    rejectForm = true;
+                    setRejectForm((Boolean) true);
                 } else if (ccn >= 17) {
                     JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number must be 16 digits");
-                    rejectForm = true;
+                    setRejectForm((Boolean) true);
                 } else if (ccn > 0) {
                     String cCNString = Integer.toString(ccn);
                     Pattern regex = Pattern.compile("[^A-Za-z0-9]");
@@ -99,42 +100,238 @@ public class Account_Class {
                     boolean matches = matcher.matches();
                     if (cCNString.contains(".")) {
                         JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a decimal");
-                        rejectForm = true;
+                        setRejectForm((Boolean) true);
                     } else if (matches == false) {
                         JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a special characters");
-                        rejectForm = true;
+                        setRejectForm((Boolean) true);
                     }
                 }
-            } else if (ccDate.length() > 0) {
+            } else if (getCcDate().length() > 0) {
                 Pattern regex = Pattern.compile("[^A-BA-B]" + "[^0-90-9]");
-                Matcher matcher = regex.matcher(ccDate);
+                Matcher matcher = regex.matcher(getCcDate());
                 boolean matches = matcher.matches();
                 if (matches == false) {
                     JOptionPane.showMessageDialog(null, "Invalid credit card date format, the date format is MMYY");
-                    rejectForm = true;
+                    setRejectForm((Boolean) true);
                 }
-            } else if (password.length() <= 7) {
+            } else if (getPassword().length() <= 7) {
                 JOptionPane.showMessageDialog(null, "Invalid password, password must be at least 8 characters");
-                rejectForm = true;
-            } else if (password.length() >= 129) {
+                setRejectForm((Boolean) true);
+            } else if (getPassword().length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid password, password must be less than or equal to 128 characters");
-                rejectForm = true;
-            } else if (Security_Class.testPassword(password) == Status.BREACHED) {
+                setRejectForm((Boolean) true);
+            } else if (Security_Class.testPassword(getPassword()) == Status.BREACHED) {
                 JOptionPane.showMessageDialog(null, "Invalid password, password is found on a list of common passwords");
-                rejectForm = true;
+                setRejectForm((Boolean) true);
             } else {
-                validForm = true;
-                JOptionPane.showMessageDialog(null, "Welcome " + userName);
+                setValidForm((Boolean) true);
+                JOptionPane.showMessageDialog(null, "Welcome " + getUserName());
             }
 
         }
     }
 
     public void assignAccountNumber() {
-        if (validForm == true) {
+        if (getValidForm() == true) {
             // query the database to find database length
             // the account number is database length + 1
         }
+    }
+
+    /**
+     * @return the returningUser
+     */
+    public Boolean getReturningUser() {
+        return returningUser;
+    }
+
+    /**
+     * @param returningUser the returningUser to set
+     */
+    public void setReturningUser(Boolean returningUser) {
+        this.returningUser = returningUser;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the middleInitial
+     */
+    public String getMiddleInitial() {
+        return middleInitial;
+    }
+
+    /**
+     * @param middleInitial the middleInitial to set
+     */
+    public void setMiddleInitial(String middleInitial) {
+        this.middleInitial = middleInitial;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the userEmail
+     */
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    /**
+     * @param userEmail the userEmail to set
+     */
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    /**
+     * @return the loginCount
+     */
+    public int getLoginCount() {
+        return loginCount;
+    }
+
+    /**
+     * @param loginCount the loginCount to set
+     */
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
+    }
+
+    /**
+     * @return the loyaltyPoints
+     */
+    public int getLoyaltyPoints() {
+        return loyaltyPoints;
+    }
+
+    /**
+     * @param loyaltyPoints the loyaltyPoints to set
+     */
+    public void setLoyaltyPoints(int loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
+    }
+
+    /**
+     * @return the rejectForm
+     */
+    public Boolean getRejectForm() {
+        return rejectForm;
+    }
+
+    /**
+     * @param rejectForm the rejectForm to set
+     */
+    public void setRejectForm(Boolean rejectForm) {
+        this.rejectForm = rejectForm;
+    }
+
+    /**
+     * @return the creditCardNumber
+     */
+    public int getCreditCardNumber() {
+        return creditCardNumber;
+    }
+
+    /**
+     * @param creditCardNumber the creditCardNumber to set
+     */
+    public void setCreditCardNumber(int creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
+    }
+
+    /**
+     * @return the ccDate
+     */
+    public String getCcDate() {
+        return ccDate;
+    }
+
+    /**
+     * @param ccDate the ccDate to set
+     */
+    public void setCcDate(String ccDate) {
+        this.ccDate = ccDate;
+    }
+
+    /**
+     * @return the cvvCode
+     */
+    public int getCvvCode() {
+        return cvvCode;
+    }
+
+    /**
+     * @param cvvCode the cvvCode to set
+     */
+    public void setCvvCode(int cvvCode) {
+        this.cvvCode = cvvCode;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return the validForm
+     */
+    public Boolean getValidForm() {
+        return validForm;
+    }
+
+    /**
+     * @param validForm the validForm to set
+     */
+    public void setValidForm(Boolean validForm) {
+        this.validForm = validForm;
     }
 
 }
