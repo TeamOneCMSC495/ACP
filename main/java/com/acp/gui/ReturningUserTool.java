@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
  *
  * @author dewal
  */
-public class OwnerAccountTool extends javax.swing.JFrame {
+public class ReturningUserTool extends javax.swing.JFrame {
 
     /**
      * Creates new form OwnerOptionsJFrame
      */
-    public OwnerAccountTool() {
+    public ReturningUserTool() {
         initComponents();
     }
 
@@ -30,42 +30,17 @@ public class OwnerAccountTool extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pathJButton = new javax.swing.JButton();
-        exportJButton = new javax.swing.JButton();
-        lookupJButton = new javax.swing.JButton();
-        loyaltyJButton = new javax.swing.JButton();
+        editJButton = new javax.swing.JButton();
         settingsJButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         ownerLabel = new javax.swing.JLabel();
         logoutJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pathJButton.setText("Set Export Path");
-        pathJButton.addActionListener(new java.awt.event.ActionListener() {
+        editJButton.setText("Edit Account Info");
+        editJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pathJButtonActionPerformed(evt);
-            }
-        });
-
-        exportJButton.setText("Export Reports...");
-        exportJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exportJButtonActionPerformed(evt);
-            }
-        });
-
-        lookupJButton.setText("Account Lookup");
-        lookupJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lookupJButtonActionPerformed(evt);
-            }
-        });
-
-        loyaltyJButton.setText("Add Loyalty Points");
-        loyaltyJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loyaltyJButtonActionPerformed(evt);
+                editJButtonActionPerformed(evt);
             }
         });
 
@@ -76,10 +51,8 @@ public class OwnerAccountTool extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Path: C/Users/Owner/Program Files/ACP/Reports");
-
         ownerLabel.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
-        ownerLabel.setText("Owner Account Tools");
+        ownerLabel.setText("Customer Account Tools");
 
         logoutJButton.setText("Log Out");
 
@@ -90,40 +63,27 @@ public class OwnerAccountTool extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pathJButton)
-                    .addComponent(exportJButton)
-                    .addComponent(lookupJButton)
-                    .addComponent(loyaltyJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editJButton)
                     .addComponent(settingsJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ownerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(102, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(logoutJButton))))
+                        .addGap(0, 288, Short.MAX_VALUE)
+                        .addComponent(logoutJButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ownerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {exportJButton, lookupJButton, loyaltyJButton, pathJButton, settingsJButton});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {editJButton, settingsJButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(ownerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pathJButton)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exportJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lookupJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loyaltyJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(editJButton)
+                .addGap(93, 93, 93)
                 .addComponent(settingsJButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -134,20 +94,9 @@ public class OwnerAccountTool extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pathJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathJButtonActionPerformed
+    private void editJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editJButtonActionPerformed
 
-    }//GEN-LAST:event_pathJButtonActionPerformed
-
-    private void loyaltyJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loyaltyJButtonActionPerformed
-    }//GEN-LAST:event_loyaltyJButtonActionPerformed
-
-    private void exportJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportJButtonActionPerformed
-
-    }//GEN-LAST:event_exportJButtonActionPerformed
-
-    private void lookupJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lookupJButtonActionPerformed
-
-    }//GEN-LAST:event_lookupJButtonActionPerformed
+    }//GEN-LAST:event_editJButtonActionPerformed
 
     private void settingsJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsJButtonActionPerformed
 
@@ -189,31 +138,15 @@ public class OwnerAccountTool extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton exportJButton;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton editJButton;
     private javax.swing.JButton logoutJButton;
-    private javax.swing.JButton lookupJButton;
-    private javax.swing.JButton loyaltyJButton;
     private javax.swing.JLabel ownerLabel;
-    private javax.swing.JButton pathJButton;
     private javax.swing.JButton settingsJButton;
     // End of variables declaration//GEN-END:variables
 
 
-    public JButton getPathJButton() {
-        return pathJButton;
-    }
-
-    public JButton getExportJButton() {
-        return exportJButton;
-    }
-
-    public JButton getLookupJButton() {
-        return lookupJButton;
-    }
-
-    public JButton getLoyaltyJButton() {
-        return loyaltyJButton;
+    public JButton getEditJButton() {
+        return editJButton;
     }
 
     public JButton getSettingsJButton() {

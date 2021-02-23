@@ -37,6 +37,7 @@ public class Base_Class {
 //    public int cvvCode = 999;
 //    public String password;
     public Boolean validForm = false;
+    public Account_Class account;
 
     /**
      * Constructors
@@ -110,7 +111,7 @@ public class Base_Class {
 
     public void validateWelcomeMessage() {
         if (returningUser == true) {
-            JOptionPane.showMessageDialog(null, "Welcome back " + account.userName);
+            JOptionPane.showMessageDialog(null, "Welcome back " + account.getUserName());
         }
     }
 
@@ -225,8 +226,7 @@ public class Base_Class {
         /**
          * Create the Account_Class object
          */
-        Account_Class account = new Account_Class(userName, userEmail, firstName,
-            middleInitial, lastName, creditCardNumber, ccDate, cvvCode, password);
+        Account_Class account = new Account_Class();
 
         /**
          * Instantiate the GUI
@@ -250,7 +250,7 @@ public class Base_Class {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new com.acp.gui.AccountCreationPortal().setVisible(true);
+                new com.acp.gui.GUI_Class(account);
             }
         });
     }

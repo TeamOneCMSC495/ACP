@@ -1,5 +1,6 @@
 package com.acp.gui;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 
@@ -36,10 +37,10 @@ public class NewAccountConfirmation extends javax.swing.JFrame {
         confirmationExampleLabel = new javax.swing.JLabel();
         thankYouLabel = new javax.swing.JLabel();
         verifyMessageLabel = new javax.swing.JLabel();
-        verifyButton = new javax.swing.JButton();
+        verifyJButton = new javax.swing.JButton();
         confirmationTextField = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        homeJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Account Creation Portal");
@@ -57,10 +58,10 @@ public class NewAccountConfirmation extends javax.swing.JFrame {
         verifyMessageLabel.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         verifyMessageLabel.setText("Verfiy Your Email To Access Your Account*");
 
-        verifyButton.setText("Verify Email");
-        verifyButton.addActionListener(new java.awt.event.ActionListener() {
+        verifyJButton.setText("Verify Email");
+        verifyJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                verifyButtonActionPerformed(evt);
+                verifyJButtonActionPerformed(evt);
             }
         });
 
@@ -72,10 +73,10 @@ public class NewAccountConfirmation extends javax.swing.JFrame {
 
         jLabel1.setText("*Not implemented yet. You will not receive an email");
 
-        jButton1.setText("Home");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        homeJButton.setText("Home");
+        homeJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                homeJButtonActionPerformed(evt);
             }
         });
 
@@ -110,8 +111,8 @@ public class NewAccountConfirmation extends javax.swing.JFrame {
                                 .addComponent(confirmationExampleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(285, 285, 285)
-                        .addComponent(verifyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1))
+                        .addComponent(verifyJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(homeJButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -130,9 +131,9 @@ public class NewAccountConfirmation extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addGap(62, 62, 62)
-                .addComponent(verifyButton)
+                .addComponent(verifyJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addComponent(homeJButton))
         );
 
         pack();
@@ -142,17 +143,14 @@ public class NewAccountConfirmation extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_confirmationTextFieldActionPerformed
 
-    private void verifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyButtonActionPerformed
+    private void verifyJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyJButtonActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Coming soon");
-    }//GEN-LAST:event_verifyButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_verifyJButtonActionPerformed
+
+    private void homeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeJButtonActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new AccountCreationPortal().setVisible(true);
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_homeJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,10 +192,20 @@ public class NewAccountConfirmation extends javax.swing.JFrame {
     private javax.swing.JLabel confirmationExampleLabel;
     private javax.swing.JLabel confirmationLabel;
     private javax.swing.JFormattedTextField confirmationTextField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton homeJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel thankYouLabel;
-    private javax.swing.JButton verifyButton;
+    private javax.swing.JButton verifyJButton;
     private javax.swing.JLabel verifyMessageLabel;
     // End of variables declaration//GEN-END:variables
+
+    
+        public JButton getHomeJButton(){
+        return homeJButton;
+    }
+
+        public JButton getVerifyJButton(){
+        return verifyJButton;
+    }
+
 }

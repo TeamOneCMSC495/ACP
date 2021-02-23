@@ -1,5 +1,7 @@
 package com.acp.gui;
 
+import javax.swing.JButton;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -115,15 +117,13 @@ public class AccountCreationPortal extends javax.swing.JFrame {
 
     private void createJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createJButtonActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new Register().setVisible(true);
+//        this.dispose();
+//        new Register().setVisible(true);
 
     }//GEN-LAST:event_createJButtonActionPerformed
 
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new ReturnUserLogin().setVisible(true);
+
     }//GEN-LAST:event_loginJButtonActionPerformed
 
     /**
@@ -160,6 +160,13 @@ public class AccountCreationPortal extends javax.swing.JFrame {
 //            }
 //        });
 //    }
+    public JButton getCreateJButton() {
+        return createJButton;
+    }
+
+    public JButton getLoginJButton() {
+        return loginJButton;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createJButton;
