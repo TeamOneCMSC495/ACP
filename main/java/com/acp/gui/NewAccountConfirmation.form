@@ -60,9 +60,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="285" max="-2" attributes="0"/>
-                      <Component id="verifyButton" min="-2" pref="161" max="-2" attributes="0"/>
+                      <Component id="verifyJButton" min="-2" pref="161" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="homeJButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -85,9 +85,9 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-              <Component id="verifyButton" min="-2" max="-2" attributes="0"/>
+              <Component id="verifyJButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="23" max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="homeJButton" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -127,12 +127,12 @@
         <Property name="text" type="java.lang.String" value="Verfiy Your Email To Access Your Account*"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="verifyButton">
+    <Component class="javax.swing.JButton" name="verifyJButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Verify Email"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verifyButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verifyJButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="confirmationTextField">
@@ -145,12 +145,12 @@
         <Property name="text" type="java.lang.String" value="*Not implemented yet. You will not receive an email"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="homeJButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Home"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="homeJButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

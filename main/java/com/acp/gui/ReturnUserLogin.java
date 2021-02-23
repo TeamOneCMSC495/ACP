@@ -1,5 +1,6 @@
 package com.acp.gui;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /*
@@ -16,8 +17,8 @@ public class ReturnUserLogin extends javax.swing.JFrame {
     /**
      * Creates new form ReturnUserLogin
      */
-    public String username;
-    public String password;
+    private String username;
+    private String password;
 
     public ReturnUserLogin() {
         initComponents();
@@ -37,8 +38,8 @@ public class ReturnUserLogin extends javax.swing.JFrame {
         userField = new javax.swing.JTextField();
         passwordLabel = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
-        loginButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        loginJButton = new javax.swing.JButton();
+        backJButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -55,17 +56,17 @@ public class ReturnUserLogin extends javax.swing.JFrame {
 
         jPasswordField1.setText("jPasswordField1");
 
-        loginButton.setText("Login");
-        loginButton.addActionListener(new java.awt.event.ActionListener() {
+        loginJButton.setText("Login");
+        loginJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginButtonActionPerformed(evt);
+                loginJButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Go Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        backJButton.setText("Go Back");
+        backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backJButtonActionPerformed(evt);
             }
         });
 
@@ -89,7 +90,7 @@ public class ReturnUserLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(backJButton)
                                 .addGap(43, 43, 43)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -110,11 +111,11 @@ public class ReturnUserLogin extends javax.swing.JFrame {
                                     .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(loginButton)
+                                .addComponent(loginJButton)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, loginButton});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {backJButton, loginJButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +131,7 @@ public class ReturnUserLogin extends javax.swing.JFrame {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordLabel))
                 .addGap(18, 18, 18)
-                .addComponent(loginButton)
+                .addComponent(loginJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -138,7 +139,7 @@ public class ReturnUserLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(backJButton)
                         .addContainerGap())
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)))
@@ -147,27 +148,13 @@ public class ReturnUserLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
-        this.username = this.userField.getText();
-        this.password = this.jPasswordField1.getText();
+    private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
 
-        if ((username.matches("owner")) && (password.matches("admin"))) {
-            this.dispose();
-            new OwnerAccountTool().setVisible(true);
-        } else if ((username.matches("customer")) && (password.matches("returning"))) {
-            this.dispose();
-            new EditAccountInfo().setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Username/password invalid");
-        }
-    }//GEN-LAST:event_loginButtonActionPerformed
+    }//GEN-LAST:event_loginJButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new AccountCreationPortal().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+
+    }//GEN-LAST:event_backJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,15 +193,37 @@ public class ReturnUserLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel UserNameLabel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton backJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JButton loginButton;
+    private javax.swing.JButton loginJButton;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel returnUserLabel;
     private javax.swing.JTextField userField;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getLoginJButton() {
+        return loginJButton;
+    }
+
+    public JButton getBackJButton() {
+        return backJButton;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return this.userField.getText();
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return this.jPasswordField1.getText();
+    }
 }
