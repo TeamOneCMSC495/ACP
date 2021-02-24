@@ -14,6 +14,7 @@ import java.sql.Types;
 import java.util.Calendar;
 import java.util.Date;
 import com.codahale.passpol.Status;
+import java.text.SimpleDateFormat;
 
 /**
  * Purpose: Hold the main method and manage the operations of the subordinate
@@ -130,8 +131,9 @@ public class Base_Class {
         localTimeString = localTime.toString();
     }
 
-    public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String email) throws Exception {
-        if (validForm == true) {
+   // public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String email) throws Exception {
+    public void storeFormDataInSQLDatabase(Account_Class account) throws Exception {    
+        //if (validForm == true) {
             // send userName to the database;
             // send loginCount  to the database;
             // send loyaltyPoints to the database;
@@ -145,26 +147,49 @@ public class Base_Class {
             Database_Class db = new Database_Class();
             Connection conn = db.getConnection();
             CallableStatement procedureCall = null;
+            
+            //Used for debugging
+            PreparedStatement sql = null;
+            ResultSet resultSet = null;
 
             try {
 
-                java.sql.Date sql_CCExpirationDate = new java.sql.Date(ccExpirationDate.getTime()); //Need to convert Credit Card expiration date to an SQL acceptable date
+                //java.sql.Date sql_CCExpirationDate = sql_CCExpirationDate.valueOf(account.getCcDate());  //new java.sql.Date(account.getCcDate()); //Need to convert Credit Card expiration date to an SQL acceptable date
+                String expirationDate = account.getCcDate();
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+                java.util.Date date = sdf1.parse(expirationDate);
+                java.sql.Date sql_ExpirationDate = new java.sql.Date(date.getTime());                 
 
-                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
-                procedureCall.setString(1, loginName);
-                procedureCall.setString(2, passWord);
-                procedureCall.setString(3, firstName);
-                procedureCall.setString(4, lastName);
-                procedureCall.setString(5, middleInitial);
-                procedureCall.setString(6, ccNumber);
-                procedureCall.setDate(7, sql_CCExpirationDate);
-                procedureCall.setString(8, email);
-                procedureCall.registerOutParameter(9, Types.INTEGER);  //PersonID
-                procedureCall.registerOutParameter(10, Types.INTEGER); //AccountID
+                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertAccount(?, ?, ?, ?, ?, ?, ?, ?, ?) }");
+                procedureCall.setString(1, account.getUserName());
+                procedureCall.setString(2, account.getPassword());
+                procedureCall.setString(3, account.getFirstName());
+                procedureCall.setString(4, account.getLastName());
+                procedureCall.setString(5, account.getMiddleInitial());
+                procedureCall.setString(6, String.valueOf(account.getCreditCardNumber()));
+                procedureCall.setDate(7, sql_ExpirationDate);
+                procedureCall.setString(8, account.getUserEmail());              
+                procedureCall.registerOutParameter(9, Types.INTEGER); //AccountID
                 procedureCall.executeQuery();
 
                 // Get the identity value of the new account			
-                int accountID = procedureCall.getInt(10);
+                int accountID = procedureCall.getInt(9);
+                
+                existingUserCheck(account.getUserName());
+                
+                System.out.println("AccountID: " + accountID);
+                System.out.println("Record Created? " + returningUser);
+                
+//                sql = conn.prepareStatement("select PersonID from account WHERE AccountID = ?");
+//                sql.setString(1, accountID);                
+//                resultSet = sql.executeQuery();
+//
+//                while (resultSet.next()) {
+//
+//                    //returningUser = true;
+//                    System.out.println("UserName: " + );
+//
+//                }                
 
             } catch (SQLException e) {
                 throw e;
@@ -181,7 +206,7 @@ public class Base_Class {
                 }
 
             }
-        }
+        //}
     }
 
     public void sendEmail() {
