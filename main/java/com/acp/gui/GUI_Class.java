@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
  * @author dewal
  */
 public class GUI_Class {
+    
+    private com.acp.Account_Class account;
 
     private AccountCreationPortal splashPage;
     private Register registerPage;
@@ -98,6 +100,18 @@ public class GUI_Class {
 
     private void submitRegisterWindow() {
         //update account obj
+        
+        account.setFirstName(registerPage.getFirstName());
+        account.setMiddleInitial(registerPage.getMiddleInitial());
+        account.setLastName(registerPage.getLastName());
+        
+        
+        //get all the info
+        
+        //send to DB
+        //com.acp.Base_Class.newEntry(account);
+        
+        
         //validate form
         //hash password
         //store user info
