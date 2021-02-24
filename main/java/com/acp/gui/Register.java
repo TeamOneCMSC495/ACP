@@ -14,6 +14,23 @@ import javax.swing.JOptionPane;
  */
 public class Register extends javax.swing.JFrame {
 
+    private Boolean returningUser = false;
+    private String userName;
+    private String firstName;
+    private String middleInitial;
+    private String lastName;
+    private String userEmail;
+    private int loginCount = 0;
+    private int loyaltyPoints = 0;
+    public String localDateString;
+    public String localTimeString;
+    public Boolean rejectForm = false;
+    private int creditCardNumber = 0;
+    private String ccDate;
+    private int cvvCode = 999;
+    private String password;
+    public Boolean validForm = false;  
+    
     /**
      * Creates new form Register
      */
@@ -299,6 +316,9 @@ public class Register extends javax.swing.JFrame {
         return backJButton;
     }
 
+ 
+        
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressLineOneField;
     private javax.swing.JTextField addressLineTwoField;
@@ -333,4 +353,46 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel zipcodeLabel;
     private javax.swing.JTextField zipcodeTextField;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userField.getText();
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstNameField.getText();
+    }
+
+    /**
+     * @return the middleInitial
+     */
+    public String getMiddleInitial() {
+        return middleInitialField.getText();
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastNameField.getText();
+    }
+
+    /**
+     * @return the userEmail
+     */
+    public String getUserEmail() {
+        return emailField.getText();
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return jPasswordField.getText();
+    }
 }
