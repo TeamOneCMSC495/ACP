@@ -6,6 +6,7 @@
 package com.acp.gui;
 
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 /**
  *
@@ -13,7 +14,9 @@ import javax.swing.JOptionPane;
  */
 public class GUI_Class {
     
-    private com.acp.Account_Class account;
+    private com.acp.Account_Class account = new com.acp.Account_Class();
+    private com.acp.Security_Class security = new com.acp.Security_Class();
+    private com.acp.Base_Class base = new com.acp.Base_Class();
 
     private AccountCreationPortal splashPage;
     private Register registerPage;
@@ -85,6 +88,7 @@ public class GUI_Class {
 
     //------------------registration page controls-------------
     private void initRegisterPage() {
+        
         registerPage.setVisible(true);
         if (!registerPageInit) {
             registerPage.getBackJButton().addActionListener(e -> backRegisterWindow());
@@ -101,15 +105,48 @@ public class GUI_Class {
     private void submitRegisterWindow() {
         //update account obj
         
+        //Security_Class security = new Security_Class();
+        String hashedPassword = security.performHash(registerPage.getPassword());        
+        
         account.setFirstName(registerPage.getFirstName());
         account.setMiddleInitial(registerPage.getMiddleInitial());
         account.setLastName(registerPage.getLastName());
+        account.setUserEmail(registerPage.getUserEmail());
+        account.setUserName(registerPage.getUserName());
+        account.setPassword(hashedPassword);
+        account.setCreditCardNumber(11112222); //Hardcoding until form is updated
+        account.setCcDate("01-12-2023"); //Hardcoding until form is updated
+        //account.setCvvCode(234);       //Not storing credit card CCV anymore.
         
+       try{
+            
+            //Base_Class base = new Base_Class();
+            base.storeFormDataInSQLDatabase(account);    
+            
+            //debug
+            //System.out.println(hashedPassword);
+
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        } catch (Exception e){
+            
+        }      
+        
+        
+        
+        //System.out.println(account.getFirstName());
+        
+        //Security_Class security = new Security_Class();
+        //String hashedPassword = security.performHash(jPasswordField1.getText());
+      
+        //Account_Class ac = new Account_Class(userField.getText(), emailField.getText(), nameField.getText(), "", nameField.getText(), 11112222, "20220221", 234, hashedPassword);
         
         //get all the info
         
         //send to DB
         //com.acp.Base_Class.newEntry(account);
+        
+       
         
         
         //validate form
