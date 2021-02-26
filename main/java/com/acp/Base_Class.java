@@ -109,6 +109,63 @@ public class Base_Class {
         //debug
         //System.out.println(returningUser);
     }
+    
+    public Account_Class getHashedPassword(String loginName) throws Exception {
+
+        Database_Class db = new Database_Class();
+        Connection conn = db.getConnection();
+        PreparedStatement sql = null;
+        ResultSet resultSet = null;
+        Account_Class account = new Account_Class();
+        
+        String hashedPassword = "";
+
+        //remove leading and trailing space
+        loginName = loginName.trim();        
+
+        try {
+
+            sql = conn.prepareStatement("SELECT Account.AccountID AccountID, Login.Password Password FROM CMSC495.Login inner join CMSC495.Account on Account.PersonID = Login.PersonID WHERE LoginName = ?");
+            sql.setString(1, loginName);
+            resultSet = sql.executeQuery();
+
+            
+            
+            while (resultSet.next()) {
+                
+                //System.out.println(resultSet.getInt(1));
+
+                //hashedPassword = resultSet.getString(1);
+                account.setAccountID(resultSet.getInt(1));
+                account.setPassword(resultSet.getString(2));
+
+            }
+
+        } catch (SQLException e) {
+            throw e;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+
+            if (conn != null) {
+                conn.close();
+            }
+
+            if (sql != null) {
+                sql.close();
+            }
+
+            if (resultSet != null) {
+                resultSet.close();
+            }
+
+        }
+        
+        return account;
+
+        //debug
+        //System.out.println(returningUser);
+    }    
 
     public void validateWelcomeMessage() {
         if (returningUser == true) {
@@ -175,8 +232,9 @@ public class Base_Class {
                 // Get the identity value of the new account			
                 int accountID = procedureCall.getInt(9);
                 
-                existingUserCheck(account.getUserName());
+                //existingUserCheck(account.getUserName());
                 
+                //debug
                 System.out.println("AccountID: " + accountID);
                 System.out.println("Record Created? " + returningUser);
                 
@@ -208,6 +266,92 @@ public class Base_Class {
             }
         //}
     }
+    
+
+
+
+    public void updateFormDataInSQLDatabase(Account_Class account) throws Exception {    
+        //if (validForm == true) {
+            // send userName to the database;
+            // send loginCount  to the database;
+            // send loyaltyPoints to the database;
+            // send localDateString to the database?;
+            // send localTimeString to the database?;
+            // send creditCardNumber to the database;
+            // send ccDate to the database;
+            // send cvvCode to the database;
+            // send password to the database;
+
+            Database_Class db = new Database_Class();
+            Connection conn = db.getConnection();
+            CallableStatement procedureCall = null;
+            
+            //Used for debugging
+            PreparedStatement sql = null;
+            ResultSet resultSet = null;
+
+            try {
+
+                //java.sql.Date sql_CCExpirationDate = sql_CCExpirationDate.valueOf(account.getCcDate());  //new java.sql.Date(account.getCcDate()); //Need to convert Credit Card expiration date to an SQL acceptable date
+                String expirationDate = account.getCcDate();
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+                java.util.Date date = sdf1.parse(expirationDate);
+                java.sql.Date sql_ExpirationDate = new java.sql.Date(date.getTime());                 
+
+                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_UpdateAccount(?, ?, ?, ?, ?, ?, ?, ?) }");
+                procedureCall.setString(1, account.getUserName()); 
+                procedureCall.setInt(2, account.getAccountID()); //hardcoding for now
+                procedureCall.setString(3, account.getFirstName());
+                procedureCall.setString(4, account.getLastName());
+                procedureCall.setString(5, account.getMiddleInitial());
+                procedureCall.setString(6, String.valueOf(account.getCreditCardNumber()));
+                procedureCall.setDate(7, sql_ExpirationDate);
+                procedureCall.setString(8, account.getUserEmail());              
+               //procedureCall.registerOutParameter(9, Types.INTEGER); //AccountID
+                procedureCall.executeQuery();
+
+                // Get the identity value of the new account			
+                //int accountID = procedureCall.getInt(9);
+                
+                //existingUserCheck(account.getUserName());
+                
+                //debug
+                System.out.println("AccountID: " + account.getAccountID());
+                System.out.println("Record updated? " + returningUser);
+                
+//                sql = conn.prepareStatement("select PersonID from account WHERE AccountID = ?");
+//                sql.setString(1, accountID);                
+//                resultSet = sql.executeQuery();
+//
+//                while (resultSet.next()) {
+//
+//                    //returningUser = true;
+//                    System.out.println("UserName: " + );
+//
+//                }                
+
+            } catch (SQLException e) {
+                throw e;
+            } catch (Exception e) {
+                throw e;
+            } finally {
+
+                if (conn != null) {
+                    conn.close();
+                }
+
+                if (procedureCall != null) {
+                    procedureCall.close();
+                }
+
+            }
+        //}
+    }
+
+
+
+
+    
 
     public void sendEmail() {
         if (validForm == true) {
@@ -223,7 +367,7 @@ public class Base_Class {
 
         try {
 
-            procedureCall = conn.prepareCall("{ CALL CMSC495.usp_DeleteUser(?, ?) }");
+            procedureCall = conn.prepareCall("{ CALL CMSC495.usp_DeleteAccount(?, ?) }");
             procedureCall.setString(1, loginName);
             procedureCall.setInt(2, accountID);
             procedureCall.executeQuery();
@@ -245,6 +389,67 @@ public class Base_Class {
         }
 
     }
+    
+     public Account_Class getAccount(int accountID) throws Exception {
+
+        Database_Class db = new Database_Class();
+        Connection conn = db.getConnection();
+        CallableStatement procedureCall = null;
+        ResultSet resultSet = null;
+        Account_Class account = new Account_Class();
+
+        try {          
+
+            procedureCall = conn.prepareCall("{ CALL CMSC495.usp_GetAccount(?) }");
+            procedureCall.setInt(1, accountID);            
+            procedureCall.executeQuery();               
+            resultSet = procedureCall.getResultSet();           
+            
+            while (resultSet.next()) {
+                
+                //debug
+                //System.out.println("3");     
+                //System.out.println(resultSet.getString(3));
+                //System.out.println(resultSet.getString("FirstName"));
+                //System.out.println(account);
+                account.setAccountID(resultSet.getInt("AccountID"));
+                account.setFirstName(resultSet.getString("FirstName"));
+                account.setMiddleInitial(resultSet.getString("MiddleInitial"));
+                account.setLastName(resultSet.getString("LastName"));
+                account.setUserEmail(resultSet.getString("Email"));
+                account.setUserName(resultSet.getString("LoginName"));   
+                account.setCreditCardNumber(resultSet.getString("MaskedCreditCard"));   
+                account.setCcDate(resultSet.getString("ExpirationDate"));   
+                
+                //debug
+                //System.out.println("4");
+
+            }    
+            
+            return account;
+
+        } catch (SQLException e) {
+            throw e;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+
+            if (conn != null) {
+                conn.close();
+            }
+
+            if (procedureCall != null) {
+                procedureCall.close();
+            }
+            
+            if (resultSet != null) {
+                resultSet.close();
+            }            
+
+        }
+        
+
+    }    
 
     public static void main(String[] args) throws Exception {
         
@@ -261,7 +466,7 @@ public class Base_Class {
         /**
          * Instantiate the Database_Class
          */
-        Database_Class db = new Database_Class();
+       // Database_Class db = new Database_Class();
 
         /**
          * Instantiate the security features
