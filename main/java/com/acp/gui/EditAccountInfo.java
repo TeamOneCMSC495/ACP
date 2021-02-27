@@ -178,6 +178,30 @@ public class EditAccountInfo extends javax.swing.JFrame {
     public JButton getBackJButton() {
         return backJButton;
     }
+    
+    public String getNameField() {
+        return this.nameField.getText();
+    } 
+    
+    public String getUserField() {
+        return this.userField.getText();
+    }  
+    
+    public String getEmailField() {
+        return this.emailField.getText();
+    }    
+    
+    public void setNameField(String value) {
+        nameField.setText(value);
+    } 
+    
+    public void setUserField(String value) {
+        userField.setText(value);
+    }  
+    
+    public void setEmailField(String value) {
+        emailField.setText(value);
+    }     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressTextField;

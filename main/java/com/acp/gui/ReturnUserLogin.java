@@ -226,4 +226,12 @@ public class ReturnUserLogin extends javax.swing.JFrame {
     public String getPassword() {
         return this.jPasswordField1.getText();
     }
+    
+    /**
+     * @reset form values
+     */    
+    public void clear(){
+        this.userField.setText("");
+        this.jPasswordField1.setText("");
+    }
 }
