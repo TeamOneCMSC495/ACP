@@ -22,6 +22,7 @@ public class Account_Class {
      * Instance and Field variables
      */
     private Boolean returningUser = false;
+    private int accountID;
     private String userName;
     private String firstName;
     private String middleInitial;
@@ -32,9 +33,9 @@ public class Account_Class {
     public String localDateString;
     public String localTimeString;
     public Boolean rejectForm = false;
-    private int creditCardNumber = 0;
+    private String creditCardNumber;
     private String ccDate;
-    private int cvvCode = 999;
+    private String cvvCode;
     private String password;
     public Boolean validForm = false;
 
@@ -45,10 +46,11 @@ public class Account_Class {
 
     }
 
-    public Account_Class(String userName, String userEmail, String firstName,
-            String middleInitial, String lastName, int creditCardNumber,
-            String ccDate, int cvvCode, String password) {
+    public Account_Class(int accountID, String userName, String userEmail, String firstName,
+            String middleInitial, String lastName, String creditCardNumber,
+            String ccDate, String cvvCode, String password) {
 
+        this.accountID = accountID;
         this.userName = userName;
         this.userEmail = userEmail;
         this.firstName = firstName;
@@ -70,50 +72,59 @@ public class Account_Class {
 
     public void validateFormData() {
         if (getReturningUser() == false) {
-            if (getUserName().length() == 0) {
-                JOptionPane.showMessageDialog(null, "Invalid userName, userName cannot be blank");
+            if (getFirstName().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Invalid first name, first name cannot be blank");
+                setRejectForm((Boolean) true);                
+            } else if (getFirstName().length() >= 129) {
+                JOptionPane.showMessageDialog(null, "Invalid first name, first name cannot be more than 128 characters");
+                setRejectForm((Boolean) true);             
+            } else if (getMiddleInitial().length() >= 2) {
+                JOptionPane.showMessageDialog(null, "Invalid middle initial, middle initial cannot be more than 1 character");
+                setRejectForm((Boolean) true);
+            } else if (getLastName().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Invalid last name, last name cannot be blank");
+                setRejectForm((Boolean) true);                
+            } else if (getLastName().length() >= 129) {
+                JOptionPane.showMessageDialog(null, "Invalid last name, last name cannot be more than 128 characters");
+                setRejectForm((Boolean) true);
+//            } else if (getCreditCardNumber() >= 0) {
+//                int ccn = String.valueOf(getCreditCardNumber()).length();
+//                if (ccn <= 15) {
+//                    JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number must be 16 digits");
+//                    setRejectForm((Boolean) true);
+//                } else if (ccn >= 17) {
+//                    JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number must be 16 digits");
+//                    setRejectForm((Boolean) true);
+//                } else if (ccn > 0) {
+//                    String cCNString = Integer.toString(ccn);
+//                    Pattern regex = Pattern.compile("[^A-Za-z0-9]");
+//                    Matcher matcher = regex.matcher(cCNString);
+//                    boolean matches = matcher.matches();
+//                    if (cCNString.contains(".")) {
+//                        JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a decimal");
+//                        setRejectForm((Boolean) true);
+//                    } else if (matches == false) {
+//                        JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a special characters");
+//                        setRejectForm((Boolean) true);
+//                    }
+////                }
+//            } else if (getCcDate().length() > 0) {
+//                Pattern regex = Pattern.compile("[^A-BA-B]" + "[^0-90-9]");
+//                Matcher matcher = regex.matcher(getCcDate());
+//                boolean matches = matcher.matches();
+//                if (matches == false) {
+//                    JOptionPane.showMessageDialog(null, "Invalid credit card date format, the date format is MMYY");
+//                    setRejectForm((Boolean) true);
+//                }
+            } else if (getUserEmail().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Invalid email address, email address cannot be blank");
+                setRejectForm((Boolean) true);
+            } else if (getUserName().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Invalid user name, user name cannot be blank");
                 setRejectForm((Boolean) true);
             } else if (getUserName().length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid userName, userName cannot be more than 128 characters");
                 setRejectForm((Boolean) true);
-            } else if (getFirstName().length() >= 129) {
-                JOptionPane.showMessageDialog(null, "Invalid first name, first name cannot be more than 128 characters");
-                setRejectForm((Boolean) true);
-            } else if (getMiddleInitial().length() >= 2) {
-                JOptionPane.showMessageDialog(null, "Invalid middle initial, middle initial cannot be more than 1 character");
-                setRejectForm((Boolean) true);
-            } else if (getLastName().length() >= 129) {
-                JOptionPane.showMessageDialog(null, "Invalid last name, last name cannot be more than 128 characters");
-                setRejectForm((Boolean) true);
-            } else if (getCreditCardNumber() >= 0) {
-                int ccn = String.valueOf(getCreditCardNumber()).length();
-                if (ccn <= 15) {
-                    JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number must be 16 digits");
-                    setRejectForm((Boolean) true);
-                } else if (ccn >= 17) {
-                    JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number must be 16 digits");
-                    setRejectForm((Boolean) true);
-                } else if (ccn > 0) {
-                    String cCNString = Integer.toString(ccn);
-                    Pattern regex = Pattern.compile("[^A-Za-z0-9]");
-                    Matcher matcher = regex.matcher(cCNString);
-                    boolean matches = matcher.matches();
-                    if (cCNString.contains(".")) {
-                        JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a decimal");
-                        setRejectForm((Boolean) true);
-                    } else if (matches == false) {
-                        JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a special characters");
-                        setRejectForm((Boolean) true);
-                    }
-                }
-            } else if (getCcDate().length() > 0) {
-                Pattern regex = Pattern.compile("[^A-BA-B]" + "[^0-90-9]");
-                Matcher matcher = regex.matcher(getCcDate());
-                boolean matches = matcher.matches();
-                if (matches == false) {
-                    JOptionPane.showMessageDialog(null, "Invalid credit card date format, the date format is MMYY");
-                    setRejectForm((Boolean) true);
-                }
             } else if (getPassword().length() <= 7) {
                 JOptionPane.showMessageDialog(null, "Invalid password, password must be at least 8 characters");
                 setRejectForm((Boolean) true);
@@ -125,10 +136,14 @@ public class Account_Class {
                 setRejectForm((Boolean) true);
             } else {
                 setValidForm((Boolean) true);
-                JOptionPane.showMessageDialog(null, "Welcome " + getUserName());
+                //JOptionPane.showMessageDialog(null, "Welcome " + getUserName());
             }
 
         }
+        
+        //debug
+//        System.out.println(getPassword());
+//        System.out.println(getPassword().length());
     }
 
     public void assignAccountNumber() {
@@ -267,14 +282,14 @@ public class Account_Class {
     /**
      * @return the creditCardNumber
      */
-    public int getCreditCardNumber() {
+    public String getCreditCardNumber() {
         return creditCardNumber;
     }
 
     /**
      * @param creditCardNumber the creditCardNumber to set
      */
-    public void setCreditCardNumber(int creditCardNumber) {
+    public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
     }
 
@@ -295,14 +310,14 @@ public class Account_Class {
     /**
      * @return the cvvCode
      */
-    public int getCvvCode() {
+    public String getCvvCode() {
         return cvvCode;
     }
 
     /**
      * @param cvvCode the cvvCode to set
      */
-    public void setCvvCode(int cvvCode) {
+    public void setCvvCode(String cvvCode) {
         this.cvvCode = cvvCode;
     }
 
@@ -333,5 +348,19 @@ public class Account_Class {
     public void setValidForm(Boolean validForm) {
         this.validForm = validForm;
     }
+    
+    /**
+     * @return the accountID
+     */
+    public int getAccountID() {
+        return accountID;
+    }
+
+    /**
+     * @param accountID the password to set
+     */
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
+    }    
 
 }
