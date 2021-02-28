@@ -31,33 +31,48 @@ public class EditAccountInfo extends javax.swing.JFrame {
     private void initComponents() {
 
         editLabel = new javax.swing.JLabel();
-        fullNameLabel = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
+        firstNameLabel = new javax.swing.JLabel();
+        firstNameField = new javax.swing.JTextField();
         userNameLabel = new javax.swing.JLabel();
         userField = new javax.swing.JTextField();
         emailAddressLabel = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
-        streetAddressLabel = new javax.swing.JLabel();
-        addressTextField = new javax.swing.JTextField();
-        passwordLabel = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
         confirmJButton = new javax.swing.JButton();
         backJButton = new javax.swing.JButton();
+        middleInitialLabel = new javax.swing.JLabel();
+        middleInitialField = new javax.swing.JTextField();
+        lastlNameLabel = new javax.swing.JLabel();
+        lastNameField = new javax.swing.JTextField();
+        streetAddressLabel1 = new javax.swing.JLabel();
+        addressLineOneField = new javax.swing.JTextField();
+        streetAddressLabel2 = new javax.swing.JLabel();
+        addressLineTwoField = new javax.swing.JTextField();
+        cityLabel = new javax.swing.JLabel();
+        cityTextField = new javax.swing.JTextField();
+        stateLabel = new javax.swing.JLabel();
+        stateComboBox = new javax.swing.JComboBox<>();
+        zipcodeLabel = new javax.swing.JLabel();
+        zipcodeTextField = new javax.swing.JTextField();
+        cardNumberLabel = new javax.swing.JLabel();
+        expirationDateLabel = new javax.swing.JLabel();
+        cvvLabel = new javax.swing.JLabel();
+        cardNumberField = new javax.swing.JTextField();
+        expirationMonthComboBox = new javax.swing.JComboBox<>();
+        expirationYearComboBox = new javax.swing.JComboBox<>();
+        cvvField = new javax.swing.JTextField();
 
         setTitle("Account Creation Portal");
 
         editLabel.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
         editLabel.setText("         Edit Your Account");
 
-        fullNameLabel.setText("Full Name");
+        firstNameLabel.setText("First Name *");
 
         userNameLabel.setText("Username");
 
+        userField.setEditable(false);
+
         emailAddressLabel.setText("Email Address");
-
-        streetAddressLabel.setText("Address");
-
-        passwordLabel.setText("Password");
 
         confirmJButton.setText("Confirm Edit");
         confirmJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -68,37 +83,92 @@ public class EditAccountInfo extends javax.swing.JFrame {
 
         backJButton.setText("Back");
 
+        middleInitialLabel.setText("Middle Initial");
+
+        lastlNameLabel.setText("Last Name *");
+
+        streetAddressLabel1.setText("Address First Line*");
+
+        streetAddressLabel2.setText("Address Second Line");
+
+        cityLabel.setText("City *");
+
+        stateLabel.setText("State *");
+
+        stateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY" }));
+
+        zipcodeLabel.setText("Zipcode *");
+
+        cardNumberLabel.setText("Card Number *");
+
+        expirationDateLabel.setText("Expiration Date *");
+
+        cvvLabel.setText("CVV *");
+
+        expirationMonthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+
+        expirationYearComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(175, 175, 175)
-                .addComponent(editLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backJButton)
+                    .addComponent(zipcodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(expirationDateLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(emailAddressLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                            .addComponent(firstNameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(userNameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cvvLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(middleInitialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(middleInitialField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lastlNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(editLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stateLabel)
+                    .addComponent(cardNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(streetAddressLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addressLineOneField, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(streetAddressLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addressLineTwoField, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(stateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(zipcodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cardNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(expirationMonthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(expirationYearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cvvField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(214, 214, 214))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(confirmJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(247, 247, 247))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(passwordLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(streetAddressLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(emailAddressLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                            .addComponent(fullNameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(userNameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nameField)
-                                .addComponent(userField)
-                                .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
-                            .addComponent(addressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(backJButton))
-                .addGap(0, 142, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,25 +176,54 @@ public class EditAccountInfo extends javax.swing.JFrame {
                 .addComponent(editLabel)
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fullNameLabel)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userNameLabel)
-                    .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(firstNameLabel)
+                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(middleInitialLabel)
+                    .addComponent(middleInitialField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lastlNameLabel)
+                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailAddressLabel)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(streetAddressLabel)
-                    .addComponent(addressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(passwordLabel)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                    .addComponent(streetAddressLabel1)
+                    .addComponent(addressLineOneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addressLineTwoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(streetAddressLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cityLabel)
+                    .addComponent(cityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stateLabel)
+                    .addComponent(stateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(zipcodeLabel)
+                    .addComponent(zipcodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cardNumberLabel)
+                    .addComponent(cardNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(expirationDateLabel)
+                    .addComponent(expirationMonthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(expirationYearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cvvLabel)
+                    .addComponent(cvvField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userNameLabel)
+                    .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(confirmJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(backJButton))
@@ -179,9 +278,17 @@ public class EditAccountInfo extends javax.swing.JFrame {
         return backJButton;
     }
     
-    public String getNameField() {
-        return this.nameField.getText();
+    public String getFirstNameField() {
+        return this.firstNameField.getText();
     } 
+    
+    public String getMiddleInitialField() {
+        return this.middleInitialField.getText();
+    }     
+    
+    public String getLastNameField() {
+        return this.lastNameField.getText();
+    }     
     
     public String getUserField() {
         return this.userField.getText();
@@ -191,9 +298,17 @@ public class EditAccountInfo extends javax.swing.JFrame {
         return this.emailField.getText();
     }    
     
-    public void setNameField(String value) {
-        nameField.setText(value);
+    public void setFirstNameField(String value) {
+        firstNameField.setText(value);
     } 
+    
+     public void setMiddleInitialField(String value) {
+        middleInitialField.setText(value);
+    }   
+     
+    public void setLastNameField(String value) {
+        lastNameField.setText(value);
+    }       
     
     public void setUserField(String value) {
         userField.setText(value);
@@ -201,21 +316,112 @@ public class EditAccountInfo extends javax.swing.JFrame {
     
     public void setEmailField(String value) {
         emailField.setText(value);
+    }  
+    
+    
+    
+    public String getAddressLineOneField() {
+        return this.addressLineOneField.getText();
+    }    
+    
+    public void setAddressLineOneField(String value) {
+        addressLineOneField.setText(value);
+    } 
+    
+    public String getAddressLineTwoField() {
+        return this.addressLineTwoField.getText();
+    }    
+    
+    public void setAddressLineTwoField(String value) {
+        addressLineTwoField.setText(value);
     }     
+    
+    public String getCityField() {
+        return this.cityTextField.getText();
+    }    
+    
+    public void setCityField(String value) {
+        cityTextField.setText(value);
+    } 
+    
+    public String getStateComboBox() {
+        return this.stateComboBox.getSelectedItem().toString();
+    }    
+    
+    public void setStateComboBox(String value) {
+        stateComboBox.setSelectedItem(value);
+    }  
+    
+    public String getZipCodeField() {
+        return this.zipcodeTextField.getText();
+    }    
+    
+    public void setZipCodeField(String value) {
+        zipcodeTextField.setText(value);
+    }    
+    
+    public String getCardNumberField() {
+        return this.cardNumberField.getText();
+    }    
+    
+    public void setCardNumberField(String value) {
+        cardNumberField.setText(value);
+    } 
+    
+    public String getExpirationMonthComboBox() {
+        return this.expirationMonthComboBox.getSelectedItem().toString();
+    }    
+    
+    public void setExpirationMonthComboBox(String value) {
+        expirationMonthComboBox.setSelectedItem(value);
+    }     
+    
+    public String getExpirationYearComboBox() {
+        return this.expirationYearComboBox.getSelectedItem().toString();
+    }    
+    
+    public void setExpirationYearComboBox(String value) {
+        expirationYearComboBox.setSelectedItem(value);
+    } 
+
+    public String getCVVField() {
+        return this.cvvField.getText();
+    }    
+    
+    public void setCVVField(String value) {
+        cvvField.setText(value);
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField addressTextField;
+    private javax.swing.JTextField addressLineOneField;
+    private javax.swing.JTextField addressLineTwoField;
     private javax.swing.JButton backJButton;
+    private javax.swing.JTextField cardNumberField;
+    private javax.swing.JLabel cardNumberLabel;
+    private javax.swing.JLabel cityLabel;
+    private javax.swing.JTextField cityTextField;
     private javax.swing.JButton confirmJButton;
+    private javax.swing.JTextField cvvField;
+    private javax.swing.JLabel cvvLabel;
     private javax.swing.JLabel editLabel;
     private javax.swing.JLabel emailAddressLabel;
     private javax.swing.JTextField emailField;
-    private javax.swing.JLabel fullNameLabel;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField nameField;
-    private javax.swing.JLabel passwordLabel;
-    private javax.swing.JLabel streetAddressLabel;
+    private javax.swing.JLabel expirationDateLabel;
+    private javax.swing.JComboBox<String> expirationMonthComboBox;
+    private javax.swing.JComboBox<String> expirationYearComboBox;
+    private javax.swing.JTextField firstNameField;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JTextField lastNameField;
+    private javax.swing.JLabel lastlNameLabel;
+    private javax.swing.JTextField middleInitialField;
+    private javax.swing.JLabel middleInitialLabel;
+    private javax.swing.JComboBox<String> stateComboBox;
+    private javax.swing.JLabel stateLabel;
+    private javax.swing.JLabel streetAddressLabel1;
+    private javax.swing.JLabel streetAddressLabel2;
     private javax.swing.JTextField userField;
     private javax.swing.JLabel userNameLabel;
+    private javax.swing.JLabel zipcodeLabel;
+    private javax.swing.JTextField zipcodeTextField;
     // End of variables declaration//GEN-END:variables
 }
