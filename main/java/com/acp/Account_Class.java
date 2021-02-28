@@ -38,6 +38,11 @@ public class Account_Class {
     private String cvvCode;
     private String password;
     public Boolean validForm = false;
+    private String addressLine1;
+    private String addressLine2;
+    private String city;
+    private String state;
+    private String zipCode;          
 
     /**
      * Constructor
@@ -361,6 +366,78 @@ public class Account_Class {
      */
     public void setAccountID(int accountID) {
         this.accountID = accountID;
-    }    
+    }
+
+    /**
+     * @return the addressLine1
+     */
+    public String getAddressLine1() {
+        return addressLine1;
+    }
+
+    /**
+     * @param addressLine1 the password to set
+     */
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }  
+    
+    /**
+     * @return the addressLine2
+     */
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    /**
+     * @param addressLine2 the password to set
+     */
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
+    }   
+    
+    /**
+     * @return the city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * @param city the password to set
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }   
+    
+    /**
+     * @return the state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * @param state the password to set
+     */
+    public void setState(String state) {
+        this.state = state;
+    }  
+    
+    /**
+     * @return the zipCode
+     */
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    /**
+     * @param zipCode the password to set
+     */
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }     
+
+    
 
 }
