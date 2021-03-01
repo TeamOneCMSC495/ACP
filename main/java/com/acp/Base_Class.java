@@ -213,11 +213,11 @@ public class Base_Class {
 
                 //java.sql.Date sql_CCExpirationDate = sql_CCExpirationDate.valueOf(account.getCcDate());  //new java.sql.Date(account.getCcDate()); //Need to convert Credit Card expiration date to an SQL acceptable date
                 String expirationDate = account.getCcDate();
-                SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                 java.util.Date date = sdf1.parse(expirationDate);
                 java.sql.Date sql_ExpirationDate = new java.sql.Date(date.getTime());                 
 
-                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertAccount(?, ?, ?, ?, ?, ?, ?, ?, ?) }");
+                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertAccount(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
                 procedureCall.setString(1, account.getUserName());
                 procedureCall.setString(2, account.getPassword());
                 procedureCall.setString(3, account.getFirstName());
@@ -225,12 +225,17 @@ public class Base_Class {
                 procedureCall.setString(5, account.getMiddleInitial());
                 procedureCall.setString(6, String.valueOf(account.getCreditCardNumber()));
                 procedureCall.setDate(7, sql_ExpirationDate);
-                procedureCall.setString(8, account.getUserEmail());              
-                procedureCall.registerOutParameter(9, Types.INTEGER); //AccountID
+                procedureCall.setString(8, account.getUserEmail());          
+                procedureCall.setString(9, account.getAddressLine1()); 
+                procedureCall.setString(10, account.getAddressLine2()); 
+                procedureCall.setString(11, account.getCity()); 
+                procedureCall.setString(12, account.getState()); 
+                procedureCall.setString(13, account.getZipCode());                 
+                procedureCall.registerOutParameter(14, Types.INTEGER); //AccountID
                 procedureCall.executeQuery();
 
                 // Get the identity value of the new account			
-                int accountID = procedureCall.getInt(9);
+                int accountID = procedureCall.getInt(14);
                 
                 //existingUserCheck(account.getUserName());
                 
@@ -294,19 +299,25 @@ public class Base_Class {
 
                 //java.sql.Date sql_CCExpirationDate = sql_CCExpirationDate.valueOf(account.getCcDate());  //new java.sql.Date(account.getCcDate()); //Need to convert Credit Card expiration date to an SQL acceptable date
                 String expirationDate = account.getCcDate();
-                SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                 java.util.Date date = sdf1.parse(expirationDate);
                 java.sql.Date sql_ExpirationDate = new java.sql.Date(date.getTime());                 
 
-                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_UpdateAccount(?, ?, ?, ?, ?, ?, ?, ?) }");
+                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_UpdateAccount(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
                 procedureCall.setString(1, account.getUserName()); 
                 procedureCall.setInt(2, account.getAccountID()); //hardcoding for now
                 procedureCall.setString(3, account.getFirstName());
                 procedureCall.setString(4, account.getLastName());
                 procedureCall.setString(5, account.getMiddleInitial());
-                procedureCall.setString(6, String.valueOf(account.getCreditCardNumber()));
+                procedureCall.setString(6, account.getCreditCardNumber());
                 procedureCall.setDate(7, sql_ExpirationDate);
                 procedureCall.setString(8, account.getUserEmail());              
+                
+                procedureCall.setString(9, account.getAddressLine1()); 
+                procedureCall.setString(10, account.getAddressLine2()); 
+                procedureCall.setString(11, account.getCity()); 
+                procedureCall.setString(12, account.getState()); 
+                procedureCall.setString(13, account.getZipCode()); 
                //procedureCall.registerOutParameter(9, Types.INTEGER); //AccountID
                 procedureCall.executeQuery();
 
@@ -419,7 +430,12 @@ public class Base_Class {
                 account.setUserEmail(resultSet.getString("Email"));
                 account.setUserName(resultSet.getString("LoginName"));   
                 account.setCreditCardNumber(resultSet.getString("MaskedCreditCard"));   
-                account.setCcDate(resultSet.getString("ExpirationDate"));   
+                account.setCcDate(resultSet.getString("ExpirationDate")); 
+                account.setAddressLine1(resultSet.getString("AddressLine1")); 
+                account.setAddressLine2(resultSet.getString("AddressLine2")); 
+                account.setCity(resultSet.getString("City")); 
+                account.setState(resultSet.getString("State")); 
+                account.setZipCode(resultSet.getString("ZipCode")); 
                 
                 //debug
                 //System.out.println("4");
