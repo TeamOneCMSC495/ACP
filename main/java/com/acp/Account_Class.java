@@ -438,6 +438,14 @@ public class Account_Class {
         this.zipCode = zipCode;
     }     
 
-    
+    public String toString() {
+        return returningUser + "," + accountID + "," + userName + "," 
+                + firstName + "," + middleInitial + "," + lastName + "," + userEmail 
+                + "," + loginCount + "," + loyaltyPoints + "," + localDateString + 
+                "," + localTimeString + "," + rejectForm + "," + creditCardNumber
+                + "," + "ccDate" + "," + cvvCode + "," + password + "," + validForm 
+                + "," + addressLine1 + "," + addressLine2 + "," + city + "," + 
+                state + "," + zipCode;
+    }
 
 }
