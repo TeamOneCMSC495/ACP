@@ -7,6 +7,8 @@ package com.acp.gui;
 
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -107,6 +109,12 @@ public class GUI_Class {
         //update account obj
         
         //Security_Class security = new Security_Class();
+        
+        int year = Integer.parseInt(registerPage.getExpirationYearComboBox());
+        int month = Integer.parseInt(registerPage.getExpirationMonthComboBox());
+        int day = 1;
+                
+        LocalDate ccDate = LocalDate.of(year, month, day);        
       
         
         account.setFirstName(registerPage.getFirstName());
@@ -115,9 +123,16 @@ public class GUI_Class {
         account.setUserEmail(registerPage.getUserEmail());
         account.setUserName(registerPage.getUserName());
         account.setPassword(registerPage.getPassword()); //sending plain text to validate form.  Maybe this should change?
-        account.setCreditCardNumber("1111222233334444"); //Hardcoding until form is updated
-        account.setCcDate("01-12-2023"); //Hardcoding until form is updated
+        //account.setCreditCardNumber("1111222233334444"); //Hardcoding until form is updated
+        //account.setCcDate("01-12-2023"); //Hardcoding until form is updated
         //account.setCvvCode(234);       //Not storing credit card CCV anymore.
+        account.setAddressLine1(registerPage.getAddressLineOneField());
+        account.setAddressLine2(registerPage.getAddressLineTwoField());
+        account.setCity(registerPage.getCityField());
+        account.setState(registerPage.getStateComboBox());
+        account.setZipCode(registerPage.getZipCodeField()); 
+        account.setCreditCardNumber(registerPage.getCardNumberField()); //Hardcoding until form is updated
+        account.setCcDate(ccDate.toString()); //Hardcoding until form is updated        
 
         
         account.validateFormData();      
@@ -165,7 +180,10 @@ public class GUI_Class {
 
                 //send to confirmation page
                 initConfirmationPage();
-                registerPage.setVisible(false);                   
+                registerPage.setVisible(false);     
+                
+                //clear form
+                registerPage.clear();
 
              } catch(SQLException e){
                  JOptionPane.showMessageDialog(null, e.getMessage());
@@ -245,10 +263,29 @@ public class GUI_Class {
             //get account info from Base_Class
             account = base.getAccount(account.getAccountID());
             
+            //Split the credit card expiration date 
+            String dateParts[] = account.getCcDate().split("-");   
+            String year = dateParts[0];
+            String month = dateParts[1];
+            String day = dateParts[2];  
+            
             //populate edit page
-            editAccountPage.setNameField(account.getFirstName() + " " + ((account.getMiddleInitial() == null) ? "" : account.getMiddleInitial()) + " " + account.getLastName());
+            //editAccountPage.setNameField(account.getFirstName() + " " + ((account.getMiddleInitial() == null) ? "" : account.getMiddleInitial()) + " " + account.getLastName());
+            editAccountPage.setFirstNameField(account.getFirstName());
+            editAccountPage.setMiddleInitialField(account.getMiddleInitial());
+            editAccountPage.setLastNameField( account.getLastName());            
             editAccountPage.setUserField(account.getUserName());
             editAccountPage.setEmailField(account.getUserEmail());  
+            editAccountPage.setAddressLineOneField(account.getAddressLine1());  
+            editAccountPage.setAddressLineTwoField(account.getAddressLine2());  
+            editAccountPage.setCityField(account.getCity());  
+            editAccountPage.setStateComboBox(account.getState());  
+            editAccountPage.setZipCodeField(account.getZipCode());          
+            editAccountPage.setCardNumberField(account.getCreditCardNumber());  
+            editAccountPage.setExpirationMonthComboBox(month);  
+            editAccountPage.setExpirationYearComboBox(year);
+            editAccountPage.setCVVField("");              
+
         
          } catch(SQLException e){
              JOptionPane.showMessageDialog(null, e.getMessage());
@@ -540,19 +577,39 @@ public class GUI_Class {
 
     private void confirmEditAccountPage() {
 
-        String fullName = editAccountPage.getNameField().trim();
-        String firstName = fullName.substring(0,fullName.indexOf(" ")).trim();
-        String lastName = fullName.substring(firstName.length(), fullName.length()).trim();
+//        String fullName = editAccountPage.getNameField().trim();
+//        String firstName = fullName.substring(0,fullName.indexOf(" ")).trim();
+//        String lastName = fullName.substring(firstName.length(), fullName.length()).trim();   
+
         
-        account.setFirstName(firstName);
-        //account.setMiddleInitial(editAccountPage.getNameField());
-        account.setLastName(lastName);
+        //setExpirationMonthComboBox
+        //getExpirationYearComboBox
+        int year = Integer.parseInt(editAccountPage.getExpirationYearComboBox());
+        int month = Integer.parseInt(editAccountPage.getExpirationMonthComboBox());
+        int day = 1;
+                
+        LocalDate ccDate = LocalDate.of(year, month, day);
+//        SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+//        java.util.Date date = sdf1.parse(ccDate);        
+        
+        //debug
+        //System.out.println(ccDate);
+               
+        account.setFirstName(editAccountPage.getFirstNameField());
+        account.setMiddleInitial(editAccountPage.getMiddleInitialField());
+        account.setLastName(editAccountPage.getLastNameField());
         account.setUserEmail(editAccountPage.getEmailField());
         account.setUserName(editAccountPage.getUserField());
         //account.setPassword(editAccountPage.getPassword()); //sending plain text to validate form.  Maybe this should change?
-        account.setCreditCardNumber("1111222233334444"); //Hardcoding until form is updated
-        account.setCcDate("01-12-2023"); //Hardcoding until form is updated
+        account.setCreditCardNumber(editAccountPage.getCardNumberField()); //Hardcoding until form is updated
+        account.setCcDate(ccDate.toString()); //Hardcoding until form is updated
         //account.setCvvCode(234);       //Not storing credit card CCV anymore.
+        
+        account.setAddressLine1(editAccountPage.getAddressLineOneField());
+        account.setAddressLine2(editAccountPage.getAddressLineTwoField());
+        account.setCity(editAccountPage.getCityField());
+        account.setState(editAccountPage.getStateComboBox());
+        account.setZipCode(editAccountPage.getZipCodeField());                    
         
         try {
 
@@ -562,6 +619,9 @@ public class GUI_Class {
 
             JOptionPane.showMessageDialog(null, "Account Updated");
             editAccountPage.setVisible(false);
+            
+            //Refresh fields to make sure information was saved to thedatabase
+            populateEditAccountPage();            
         
          } catch(SQLException e){
              JOptionPane.showMessageDialog(null, e.getMessage());
