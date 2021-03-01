@@ -1,5 +1,6 @@
 package com.acp.gui;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /*
@@ -30,41 +31,39 @@ public class ExportJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        singleJButton = new javax.swing.JButton();
+        allJButton = new javax.swing.JButton();
+        tailoredJButton = new javax.swing.JButton();
+        backJButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Export Options");
 
-        jButton1.setText("Export Single User");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        singleJButton.setText("Export Single User");
+        singleJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                singleJButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Export All Users");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        allJButton.setText("Export All Users");
+        allJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                allJButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Tailored Report");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        tailoredJButton.setText("Tailored Report");
+        tailoredJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                tailoredJButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Back");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        backJButton.setText("Back");
+        backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                backJButtonActionPerformed(evt);
             }
         });
 
@@ -75,57 +74,48 @@ public class ExportJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(singleJButton)
+                    .addComponent(allJButton)
+                    .addComponent(tailoredJButton)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(69, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton4)
+                .addComponent(backJButton)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {allJButton, singleJButton, tailoredJButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(singleJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(allJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(tailoredJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(jButton4))
+                .addComponent(backJButton))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Coming soon");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void singleJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_singleJButtonActionPerformed
+    }//GEN-LAST:event_singleJButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Coming soon");
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void allJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allJButtonActionPerformed
+    }//GEN-LAST:event_allJButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new OwnerAccountTool().setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+    }//GEN-LAST:event_backJButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Coming soon");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void tailoredJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tailoredJButtonActionPerformed
+    }//GEN-LAST:event_tailoredJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,12 +151,28 @@ public class ExportJFrame extends javax.swing.JFrame {
 //            }
 //        });
 //    }
+    public JButton getAllJButton() {
+        return allJButton;
+    }
 
+    public JButton getSingleJButton() {
+        return singleJButton;
+    }
+
+    public JButton getTailoredJButton() {
+        return tailoredJButton;
+    }
+    
+        public JButton getBackJButton() {
+        return backJButton;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton allJButton;
+    private javax.swing.JButton backJButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton singleJButton;
+    private javax.swing.JButton tailoredJButton;
     // End of variables declaration//GEN-END:variables
 }

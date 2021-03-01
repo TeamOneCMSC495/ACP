@@ -2,7 +2,6 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Account Creation Portal"/>
   </Properties>
   <SyntheticProperties>
@@ -24,34 +23,74 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="passwordLabel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="streetAddressLabel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="emailAddressLabel" alignment="0" pref="104" max="32767" attributes="0"/>
-                  <Component id="fullNameLabel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="userNameLabel" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="nameField" max="32767" attributes="0"/>
-                      <Component id="userField" max="32767" attributes="0"/>
-                      <Component id="emailField" pref="182" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="addressTextField" min="-2" pref="400" max="-2" attributes="0"/>
-                  <Component id="jPasswordField1" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="0" pref="142" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
-              <Component id="editLabel" min="-2" pref="259" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="backJButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="zipcodeLabel" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="expirationDateLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="emailAddressLabel" alignment="0" pref="104" max="32767" attributes="0"/>
+                          <Component id="firstNameLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="userNameLabel" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="cvvLabel" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="firstNameField" min="-2" pref="105" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="middleInitialLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="middleInitialField" min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lastlNameLabel" min="-2" pref="71" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="editLabel" alignment="1" min="-2" pref="259" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lastNameField" min="-2" pref="103" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="cityLabel" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
+                  <Component id="stateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="cardNumberLabel" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="streetAddressLabel1" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="emailField" min="-2" pref="182" max="-2" attributes="0"/>
+                          <Component id="addressLineOneField" min="-2" pref="322" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="streetAddressLabel2" pref="118" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cityTextField" min="-2" pref="132" max="-2" attributes="0"/>
+                          <Component id="addressLineTwoField" min="-2" pref="322" max="-2" attributes="0"/>
+                          <Component id="stateComboBox" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                          <Component id="zipcodeTextField" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                          <Component id="cardNumberField" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="expirationMonthComboBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="expirationYearComboBox" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="cvvField" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="userField" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="confirmEditButton" min="-2" pref="167" max="-2" attributes="0"/>
+              <Component id="confirmJButton" min="-2" pref="167" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -62,32 +101,68 @@
               <Component id="editLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="fullNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="firstNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="firstNameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="middleInitialLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="middleInitialField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lastlNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lastNameField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="userNameLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="userField" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="emailAddressLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="emailField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="streetAddressLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="addressTextField" alignment="3" min="-2" pref="72" max="-2" attributes="0"/>
+                  <Component id="streetAddressLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addressLineOneField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="jPasswordField1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="addressLineTwoField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="streetAddressLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="59" max="32767" attributes="0"/>
-              <Component id="confirmEditButton" min="-2" pref="42" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cityTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="stateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="stateComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="zipcodeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="zipcodeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cardNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cardNumberField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="expirationDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="expirationMonthComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="expirationYearComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cvvLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cvvField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="userNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="userField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <Component id="confirmJButton" min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="backJButton" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,12 +176,12 @@
         <Property name="text" type="java.lang.String" value="         Edit Your Account"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="fullNameLabel">
+    <Component class="javax.swing.JLabel" name="firstNameLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Full Name"/>
+        <Property name="text" type="java.lang.String" value="First Name *"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="nameField">
+    <Component class="javax.swing.JTextField" name="firstNameField">
     </Component>
     <Component class="javax.swing.JLabel" name="userNameLabel">
       <Properties>
@@ -114,6 +189,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="userField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="emailAddressLabel">
       <Properties>
@@ -122,27 +200,190 @@
     </Component>
     <Component class="javax.swing.JTextField" name="emailField">
     </Component>
-    <Component class="javax.swing.JLabel" name="streetAddressLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Address"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="addressTextField">
-    </Component>
-    <Component class="javax.swing.JLabel" name="passwordLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Password"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="jPasswordField1">
-    </Component>
-    <Component class="javax.swing.JButton" name="confirmEditButton">
+    <Component class="javax.swing.JButton" name="confirmJButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirm Edit"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmEditButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmJButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="backJButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Back"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="middleInitialLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Middle Initial"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="middleInitialField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lastlNameLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Last Name *"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="lastNameField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="streetAddressLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Address First Line*"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="addressLineOneField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="streetAddressLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Address Second Line"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="addressLineTwoField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="cityLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="City *"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="cityTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="stateLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="State *"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="stateComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="51">
+            <StringItem index="0" value="AL"/>
+            <StringItem index="1" value="AK"/>
+            <StringItem index="2" value="AZ"/>
+            <StringItem index="3" value="AR"/>
+            <StringItem index="4" value="CA"/>
+            <StringItem index="5" value="CO"/>
+            <StringItem index="6" value="CT"/>
+            <StringItem index="7" value="DE"/>
+            <StringItem index="8" value="DC"/>
+            <StringItem index="9" value="FL"/>
+            <StringItem index="10" value="GA"/>
+            <StringItem index="11" value="HI"/>
+            <StringItem index="12" value="ID"/>
+            <StringItem index="13" value="IL"/>
+            <StringItem index="14" value="IN"/>
+            <StringItem index="15" value="IA"/>
+            <StringItem index="16" value="KS"/>
+            <StringItem index="17" value="KY"/>
+            <StringItem index="18" value="LA"/>
+            <StringItem index="19" value="ME"/>
+            <StringItem index="20" value="MD"/>
+            <StringItem index="21" value="MA"/>
+            <StringItem index="22" value="MI"/>
+            <StringItem index="23" value="MN"/>
+            <StringItem index="24" value="MS"/>
+            <StringItem index="25" value="MO"/>
+            <StringItem index="26" value="MT"/>
+            <StringItem index="27" value="NE"/>
+            <StringItem index="28" value="NV"/>
+            <StringItem index="29" value="NH"/>
+            <StringItem index="30" value="NJ"/>
+            <StringItem index="31" value="NM"/>
+            <StringItem index="32" value="NY"/>
+            <StringItem index="33" value="NC"/>
+            <StringItem index="34" value="ND"/>
+            <StringItem index="35" value="OH"/>
+            <StringItem index="36" value="OK"/>
+            <StringItem index="37" value="OR"/>
+            <StringItem index="38" value="PA"/>
+            <StringItem index="39" value="RI"/>
+            <StringItem index="40" value="SC"/>
+            <StringItem index="41" value="SD"/>
+            <StringItem index="42" value="TN"/>
+            <StringItem index="43" value="TX"/>
+            <StringItem index="44" value="UT"/>
+            <StringItem index="45" value="VT"/>
+            <StringItem index="46" value="VA"/>
+            <StringItem index="47" value="WA"/>
+            <StringItem index="48" value="WV"/>
+            <StringItem index="49" value="WI"/>
+            <StringItem index="50" value="WY"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="zipcodeLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Zipcode *"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="zipcodeTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="cardNumberLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Number *"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="expirationDateLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Expiration Date *"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cvvLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="CVV *"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="cardNumberField">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="expirationMonthComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="12">
+            <StringItem index="0" value="01"/>
+            <StringItem index="1" value="02"/>
+            <StringItem index="2" value="03"/>
+            <StringItem index="3" value="04"/>
+            <StringItem index="4" value="05"/>
+            <StringItem index="5" value="06"/>
+            <StringItem index="6" value="07"/>
+            <StringItem index="7" value="08"/>
+            <StringItem index="8" value="09"/>
+            <StringItem index="9" value="10"/>
+            <StringItem index="10" value="11"/>
+            <StringItem index="11" value="12"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="expirationYearComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="10">
+            <StringItem index="0" value="2021"/>
+            <StringItem index="1" value="2022"/>
+            <StringItem index="2" value="2023"/>
+            <StringItem index="3" value="2024"/>
+            <StringItem index="4" value="2025"/>
+            <StringItem index="5" value="2026"/>
+            <StringItem index="6" value="2027"/>
+            <StringItem index="7" value="2028"/>
+            <StringItem index="8" value="2029"/>
+            <StringItem index="9" value="2030"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="cvvField">
     </Component>
   </SubComponents>
 </Form>
