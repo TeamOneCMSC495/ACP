@@ -36,7 +36,7 @@ CREATE TABLE `account` (
   PRIMARY KEY (`AccountID`),
   KEY `fk_Account_Person_idx` (`PersonID`),
   CONSTRAINT `fk_Account_Person` FOREIGN KEY (`PersonID`) REFERENCES `person` (`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,6 +62,61 @@ CREATE TABLE `accounthistory` (
   KEY `fk_AccountHistory_idx` (`AccountID`),
   CONSTRAINT `fk_AccountHistory` FOREIGN KEY (`AccountID`) REFERENCES `account` (`AccountID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `address`
+--
+
+DROP TABLE IF EXISTS `address`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `address` (
+  `AddressID` int NOT NULL AUTO_INCREMENT,
+  `AccountID` int NOT NULL,
+  `AddressLine1` varchar(45) NOT NULL,
+  `AddressLine2` varchar(45) DEFAULT NULL,
+  `City` varchar(45) NOT NULL,
+  `State` varchar(45) NOT NULL,
+  `ZipCode` varchar(45) NOT NULL,
+  `CreatedBy` varchar(45) NOT NULL,
+  `CreatedDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(45) DEFAULT NULL,
+  `ModifiedDate` datetime DEFAULT NULL,
+  `RecordStartDateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `RecordEndDateTime` datetime NOT NULL DEFAULT '9999-12-31 00:00:00',
+  PRIMARY KEY (`AddressID`),
+  KEY `fk_Address_Account_idx` (`AccountID`),
+  CONSTRAINT `fk_Address_Account` FOREIGN KEY (`AccountID`) REFERENCES `account` (`AccountID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `addresshistory`
+--
+
+DROP TABLE IF EXISTS `addresshistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `addresshistory` (
+  `AddressHistoryID` int NOT NULL AUTO_INCREMENT,
+  `AddressID` int NOT NULL,
+  `AccountID` int NOT NULL,
+  `AddressLine1` varchar(45) NOT NULL,
+  `AddressLine2` varchar(45) DEFAULT NULL,
+  `City` varchar(45) NOT NULL,
+  `State` varchar(45) NOT NULL,
+  `ZipCode` varchar(45) NOT NULL,
+  `CreatedBy` varchar(45) NOT NULL,
+  `CreatedDate` varchar(45) NOT NULL,
+  `ModifiedBy` varchar(45) DEFAULT NULL,
+  `ModifiedDate` varchar(45) DEFAULT NULL,
+  `RecordStartDateTime` datetime NOT NULL,
+  `RecordEndDateTime` datetime NOT NULL,
+  PRIMARY KEY (`AddressHistoryID`),
+  KEY `fk_AddressHistory_Address_idx` (`AddressID`),
+  CONSTRAINT `fk_AddressHistory_Address` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +161,7 @@ CREATE TABLE `creditcard` (
   PRIMARY KEY (`CreditCardID`),
   KEY `fk_CreditCard_Account_idx` (`AccountID`),
   CONSTRAINT `fk_CreditCard_Account` FOREIGN KEY (`AccountID`) REFERENCES `account` (`AccountID`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +186,7 @@ CREATE TABLE `creditcardhistory` (
   PRIMARY KEY (`creditcardhistoryID`),
   KEY `fk_creditcardhistory_idx` (`CreditCardID`),
   CONSTRAINT `fk_creditcardhistory` FOREIGN KEY (`CreditCardID`) REFERENCES `creditcard` (`CreditCardID`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +210,7 @@ CREATE TABLE `email` (
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   KEY `fk_Email_Account_idx` (`AccountID`),
   CONSTRAINT `fk_Email_Account` FOREIGN KEY (`AccountID`) REFERENCES `account` (`AccountID`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +235,7 @@ CREATE TABLE `emailhistory` (
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   KEY `fk_email_idx` (`EmailID`),
   CONSTRAINT `fk_email` FOREIGN KEY (`EmailID`) REFERENCES `email` (`EmailID`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +312,7 @@ CREATE TABLE `login` (
   UNIQUE KEY `LoginName_UNIQUE` (`LoginName`),
   KEY `fk_Login_Person_idx` (`PersonID`),
   CONSTRAINT `fk_Login_Person` FOREIGN KEY (`PersonID`) REFERENCES `person` (`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,7 +360,7 @@ CREATE TABLE `person` (
   `RecordStartDateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `RecordEndDateTime` datetime NOT NULL DEFAULT '9999-12-31 00:00:00',
   PRIMARY KEY (`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=273 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=307 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,7 +385,7 @@ CREATE TABLE `personhistory` (
   PRIMARY KEY (`PersonHistoryID`),
   KEY `fk_Personhistory_idx` (`PersonID`),
   CONSTRAINT `fk_Personhistory` FOREIGN KEY (`PersonID`) REFERENCES `person` (`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -517,8 +572,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_GetAccount`(
 BEGIN
 
 	
-
-	SET @AccountID := AccountID;    
+	-- SET @LoginName := TRIM( LoginName );    
+	SET @AccountID := AccountID; -- ( SELECT AccountID FROM Account WHERE Account.PersonID = @PersonID );    
+	-- SET @PersonID := ( SELECT PersonID FROM Account WHERE Account.PersonID = @LoginName );    
     
     -- debug
     -- SELECT @AccountID;
@@ -532,7 +588,14 @@ BEGIN
         Email.Email,
         CreditCard.MaskedCreditCard,
         CreditCard.ExpirationDate,
-        Account.LoyaltyPoints
+        Login.LoginName,
+        Login.Password,
+        Account.LoyaltyPoints,
+        Address.AddressLine1,
+        Address.AddressLine2,
+        Address.City,
+        Address.State,
+        Address.ZipCode
     FROM Account
         INNER JOIN Person
             ON Person.PersonID = Account.PersonID
@@ -541,7 +604,9 @@ BEGIN
 		LEFT OUTER JOIN CreditCard
 			ON CreditCard.AccountID = Account.AccountID	           
 		LEFT OUTER JOIN Login
-			ON Login.PersonID = Account.PersonID			
+			ON Login.PersonID = Account.PersonID
+		LEFT OUTER JOIN Address
+            ON Address.AccountID = Account.AccountID
 	WHERE Account.AccountID = @AccountID;
 
 
@@ -594,9 +659,11 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_GetAllAccounts`(
-	
+	OUT rowCount int 
 )
 BEGIN
+
+	SET rowCount := ( SELECT COUNT(*) FROM Account );
 
 	-- MySQL gotcha...need to use table name in where clause, or query will return all results.
 	SELECT 
@@ -607,7 +674,14 @@ BEGIN
         Email.Email,
         CreditCard.MaskedCreditCard,
         CreditCard.ExpirationDate,
-        Account.LoyaltyPoints
+        Login.LoginName,
+        Login.Password,
+        Account.LoyaltyPoints,
+        Address.AddressLine1,
+        Address.AddressLine2,
+        Address.City,
+        Address.State,
+        Address.ZipCode        
     FROM Account
         INNER JOIN Person
             ON Person.PersonID = Account.PersonID
@@ -616,7 +690,9 @@ BEGIN
 		LEFT OUTER JOIN CreditCard
 			ON CreditCard.AccountID = Account.AccountID	           
 		LEFT OUTER JOIN Login
-			ON Login.PersonID = Account.PersonID;
+			ON Login.PersonID = Account.PersonID
+		LEFT OUTER JOIN Address
+            ON Address.AccountID = Account.AccountID;
 
 END ;;
 DELIMITER ;
@@ -839,7 +915,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_InsertAccount`(
     IN MiddleInitial char(1),
     IN CCNumber varchar(16), -- Credit card numbers can begin with a zero
     IN CCExpirationDate date, -- ex..02/2023   
-    IN Email varchar(45),    
+    IN Email varchar(45), 
+    IN AddressLine1 varchar(45),
+    IN AddressLine2 varchar(45),
+    IN City varchar(45),
+    IN State varchar(45),
+    IN ZipCode varchar(45),    
     OUT AccountID int        
 )
 BEGIN
@@ -891,16 +972,22 @@ BEGIN
      END;    
      
     -- Convert parameters to variables to avoid confusion
-    SET @LoginName := TRIM(LoginName);
-    SET @PassWord := TRIM(PassWord);	
-    SET @FirstName := TRIM(FirstName);
-    SET @LastName := TRIM(LastName);
-    SET @MiddleInitial := TRIM(MiddleInitial);
-    SET @CCNumber = TRIM(CCNumber);
+    SET @LoginName := NULLIF( TRIM( LoginName ), '' );
+    SET @PassWord := NULLIF( TRIM( PassWord ), '' );	
+    SET @FirstName := NULLIF( TRIM( FirstName ), '' );
+    SET @LastName := NULLIF( TRIM( LastName ), '' );
+    SET @MiddleInitial := NULLIF( TRIM(MiddleInitial ), '' );
+    SET @CCNumber = NULLIF( TRIM( CCNumber ), '' );
 	-- SET @EncryptedCreditCard := @CCNumber; Do not stored ecrypted value	
-	SET @MaskedCreditCard := CONCAT( REPEAT( '*', 12 ), RIGHT( @CCNumber, 4 ) );   -- Mask and store credit card number 
+	SET @MaskedCreditCard := NULLIF( CONCAT( REPEAT( '*', 12 ), RIGHT( @CCNumber, 4 ) ), '' );   -- Mask and store credit card number 
     SET @CCExpirationDate := CCExpirationDate;   
-	SET @Email := TRIM(Email);
+	SET @Email := NULLIF( TRIM( Email ), '' );
+    
+    SET @AddressLine1 = NULLIF( TRIM( AddressLine1 ), '' );
+    SET @AddressLine2 = NULLIF( TRIM( AddressLine2 ), '' );
+    SET @City = NULLIF( TRIM( City ), '' );
+    SET @State = NULLIF( TRIM( State ), '' );
+    SET @ZipCode = NULLIF( TRIM( ZipCode ), '' );
     
     START TRANSACTION;    
 
@@ -919,10 +1006,13 @@ BEGIN
 		VALUES ( @AccountID, @MaskedCreditCard, @CCExpirationDate, @LoginName );
 		
 		INSERT INTO CMSC495.Email ( AccountID, Email, CreatedBy )
-		VALUES ( @AccountID, Email, LoginName );
+		VALUES ( @AccountID, Email, @LoginName );
 		
 		INSERT INTO CMSC495.Login ( PersonID, LoginName, Password, CreatedBy )
-		VALUES ( @PersonID, LoginName, Password, LoginName );
+		VALUES ( @PersonID, LoginName, Password, @LoginName );
+        
+        INSERT INTO CMSC495.Address ( AccountID, AddressLine1, AddressLine2, City, State, ZipCode, CreatedBy )
+        VALUES ( @AccountID, @AddressLine1, @AddressLine2, @City, @State, @ZipCode, @LoginName );
 		
 		--     select * from person;
 		--     select * from account;
@@ -955,10 +1045,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_UpdateAccount`(
 	IN AccountID int,
     IN FirstName varchar(45),
     IN LastName varchar(45),
-    IN MiddleInitial char(1),
+    IN MiddleInitial char(1),  
     IN CCNumber varchar(16), -- Credit card numbers can begin with a zero
     IN CCExpirationDate date, -- ex..02/2023   
-    IN Email varchar(45)            
+    IN Email varchar(45),
+    IN AddressLine1 varchar(45),
+    IN AddressLine2 varchar(45),
+    IN City varchar(45),
+    IN State varchar(45),
+    IN ZipCode varchar(45)  
 )
 BEGIN
 
@@ -1007,15 +1102,21 @@ BEGIN
      END;    
      
     -- Convert parameters to variables to avoid confusion and remove white space from strings
-    SET @LoginName := TRIM(LoginName);  
-    SET @FirstName := TRIM(FirstName);
-    SET @LastName := TRIM(LastName);
-    SET @MiddleInitial := TRIM(MiddleInitial);
-    SET @CCNumber = TRIM(CCNumber);	
+    SET @LoginName := NULLIF( TRIM(LoginName), '' );  
+    SET @FirstName := NULLIF( TRIM(FirstName), '' );
+    SET @LastName := NULLIF( TRIM(LastName), '' );
+    SET @MiddleInitial := NULLIF( TRIM(MiddleInitial), '' );
+    SET @CCNumber = NULLIF( TRIM(CCNumber), '' );	
 	SET @MaskedCreditCard := CONCAT( REPEAT( '*', 12 ), RIGHT( @CCNumber, 4 ) );   -- Mask and store credit card number 
     SET @CCExpirationDate := CCExpirationDate;   
-	SET @Email := TRIM(Email);
+	SET @Email := NULLIF( TRIM(Email), '' );
     SET @AccountID := AccountID;
+    
+    SET @AddressLine1 = NULLIF( TRIM(AddressLine1 ), '' );
+    SET @AddressLine2 = NULLIF( TRIM(AddressLine2 ), '' );
+    SET @City = NULLIF( TRIM( City ), '' );
+    SET @State = NULLIF( TRIM( State ), '' );
+    SET @ZipCode = NULLIF( TRIM( ZipCode ), '' );    
     
     
     SET @DateTimeNow = Current_TimeStamp();
@@ -1041,6 +1142,11 @@ BEGIN
 	INTO @CurrentEmail 
     FROM CMSC495.Email
 	WHERE Email.AccountID = @AccountID;
+    
+    SELECT Address.AddressLine1, Address.AddressLine2, Address.City, Address.State, Address.ZipCode
+    INTO @CurrentAddressLine1, @CurrentAddressLine2, @CurrentCity, @CurrentState, @CurrentZipCode
+    FROM CMSC495.Address
+    WHERE Address.AccountID = @AccountID;
 	 
     
     START TRANSACTION;    	 
@@ -1134,7 +1240,41 @@ BEGIN
         
         END;
         END IF;
-            
+        
+        IF @AddressLine1 <> @CurrentAddressLine1 OR IFNULL( @AddressLine2, '' ) <> IFNULL( @CurrentAddressLine2, '' ) OR @City <> @CurrentCity OR @State <> @CurrentState OR @ZipCode <> @CurrentZipCode THEN 
+        BEGIN
+         
+			INSERT INTO CMSC495.AddressHistory ( AddressID, AccountID, AddressLine1, AddressLine2, City, State, ZipCode, CreatedBy, CreatedDate, Modifiedby, ModifiedDate, RecordstartDateTime, RecordEndDateTime )
+            SELECT 
+				Address.AddressID, 
+                Address.AccountID, 
+                Address.AddressLine1, 
+                Address.AddressLine2, 
+                Address.City, 
+                Address.State, 
+                Address.ZipCode, 
+                Address.CreatedBy, 
+                Address.CreatedDate, 
+                Address.Modifiedby, 
+                Address.ModifiedDate, 
+                Address.RecordstartDateTime,
+                @DateTimeNow                   
+            FROM CMSC495.Address
+			WHERE Address.AccountID = @AccountID;
+        
+			UPDATE CMSC495.Address
+            SET AddressLine1 = @AddressLine1,
+				AddressLine2 = @AddressLine2,
+				City = @City, 
+				State = @State, 
+				ZipCode = @ZipCode, 
+                ModifiedBy = @LoginName,
+                ModifiedDate = @DateTimeNow,
+				RecordStartDateTime = @DateTimeNow
+            WHERE Address.AccountID = @AccountID;
+         
+        END;
+        END IF;         
 		
 	COMMIT;
     
@@ -1155,4 +1295,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-23 13:09:44
+-- Dump completed on 2021-02-28 22:04:37
