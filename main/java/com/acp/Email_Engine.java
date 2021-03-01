@@ -14,8 +14,8 @@ public class Email_Engine {
     /**
      * Constructors
      */
-    public Email_Engine() {
-    }
+    //public Email_Engine() {
+    //}
 
     /**
      * Getters
@@ -26,6 +26,6 @@ public class Email_Engine {
     /**
      * Methods
      */
-    public void sendTheEmail() {
-    }
+    //public void sendTheEmail() {
+    //}
 }
