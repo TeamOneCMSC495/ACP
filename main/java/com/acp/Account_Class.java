@@ -42,7 +42,9 @@ public class Account_Class {
     private String addressLine2;
     private String city;
     private String state;
-    private String zipCode;          
+    private String zipCode;
+    private Boolean accountConfirmed;
+    private String confirmationCode;
 
     /**
      * Constructor
@@ -436,16 +438,36 @@ public class Account_Class {
      */
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }     
-
-    public String toString() {
-        return returningUser + "," + accountID + "," + userName + "," 
-                + firstName + "," + middleInitial + "," + lastName + "," + userEmail 
-                + "," + loginCount + "," + loyaltyPoints + "," + localDateString + 
-                "," + localTimeString + "," + rejectForm + "," + creditCardNumber
-                + "," + "ccDate" + "," + cvvCode + "," + password + "," + validForm 
-                + "," + addressLine1 + "," + addressLine2 + "," + city + "," + 
-                state + "," + zipCode;
+    }   
+    
+    /**
+     * @return the accountConfirmed
+     */
+    public Boolean getAccountConfirmed() {
+        return accountConfirmed;
     }
+
+    /**
+     * @param confirmed the password to set
+     */
+    public void setAccountConfirmed(Boolean confirmed) {
+        this.accountConfirmed = confirmed;
+    }    
+    
+    /**
+     * @return the confirmationCode
+     */
+    public String getConfirmationCode() {
+        return confirmationCode;
+    }
+
+    /**
+     * @param confirmationCode the password to set
+     */
+    public void setConfirmationCode(String confirmationCode) {
+        this.confirmationCode = confirmationCode;
+    }      
+
+    
 
 }
