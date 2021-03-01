@@ -465,7 +465,108 @@ public class Base_Class {
         }
         
 
-    }    
+    }   
+     
+     public Account_Class[] getAllAccounts() throws Exception {
+
+        Database_Class db = new Database_Class();
+        Connection conn = db.getConnection();
+        CallableStatement procedureCall = null;
+        ResultSet resultSet = null;
+        //Account_Class[] accountArray = new Account_Class[100];
+
+        try {          
+
+            procedureCall = conn.prepareCall("{ CALL CMSC495.usp_GetAllAccounts(?) }");
+            procedureCall.registerOutParameter(1, Types.INTEGER); //row count       
+            procedureCall.executeQuery();               
+            resultSet = procedureCall.getResultSet(); 
+            int index = procedureCall.getInt(1);
+            int row = 0;
+            
+            //debug
+            //System.out.println(index);
+            
+            Account_Class[] accountArray = new Account_Class[index];
+            
+  
+            
+            while (resultSet.next()) {
+                
+               //System.out.println( resultSet.length);
+                
+                //debug
+                //System.out.println("3");     
+                //System.out.println(resultSet.getString(3));
+                //System.out.println(resultSet.getString("FirstName"));
+                //System.out.println(account);
+                accountArray[row] = new Account_Class();
+                
+                accountArray[row].setAccountID(resultSet.getInt("AccountID"));
+                accountArray[row].setFirstName(resultSet.getString("FirstName"));
+                accountArray[row].setMiddleInitial(resultSet.getString("MiddleInitial"));
+                accountArray[row].setLastName(resultSet.getString("LastName"));
+                accountArray[row].setUserEmail(resultSet.getString("Email"));
+                accountArray[row].setUserName(resultSet.getString("LoginName"));   
+                accountArray[row].setCreditCardNumber(resultSet.getString("MaskedCreditCard"));   
+                accountArray[row].setCcDate(resultSet.getString("ExpirationDate")); 
+                accountArray[row].setAddressLine1(resultSet.getString("AddressLine1")); 
+                accountArray[row].setAddressLine2(resultSet.getString("AddressLine2")); 
+                accountArray[row].setCity(resultSet.getString("City")); 
+                accountArray[row].setState(resultSet.getString("State")); 
+                accountArray[row].setZipCode(resultSet.getString("ZipCode")); 
+                
+                //debug
+                //System.out.println("AccountID: " + accountArray[row].getAccountID() + ", " + "UserName: " + accountArray[row].getUserName() + ", " + "FirstName: " + accountArray[row].getFirstName() + ", " + "MiddleInitial: " + accountArray[row].getMiddleInitial() + ", " + "LastName: " + accountArray[row].getLastName()); 
+//                System.out.println(accountArray[row].getUserEmail()); 
+//                System.out.println(accountArray[row].getCreditCardNumber()); 
+//                System.out.println(accountArray[row].getCcDate()); 
+//                System.out.println(accountArray[row].getCvvCode()); 
+//                System.out.println(accountArray[row].getPassword()); 
+//                System.out.println(accountArray[row].getAddressLine1()); 
+//                System.out.println(accountArray[row].getAddressLine2()); 
+//                System.out.println(accountArray[row].getCity()); 
+//                System.out.println(accountArray[row].getState()); 
+//                System.out.println(accountArray[row].getZipCode()); 
+                //System.out.println(row);
+                //System.out.println(accountArray.length);
+                
+                row++;
+              
+
+            }    
+            
+            //System.out.println(accountArray.length);
+            
+            //debug
+//            for(int i=0; i<accountArray.length; i++) {
+//               System.out.println("AccountID: " + accountArray[i].getAccountID() + ", " + "UserName: " + accountArray[i].getUserName() + ", " + "FirstName: " + accountArray[i].getFirstName() + ", " + "MiddleInitial: " + accountArray[i].getMiddleInitial() + ", " + "LastName: " + accountArray[i].getLastName()); 
+//            }            
+            
+            return accountArray;
+
+        } catch (SQLException e) {
+            throw e;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+
+            if (conn != null) {
+                conn.close();
+            }
+
+            if (procedureCall != null) {
+                procedureCall.close();
+            }
+            
+            if (resultSet != null) {
+                resultSet.close();
+            }            
+
+        }
+        
+
+    }        
 
     public static void main(String[] args) throws Exception {
         
@@ -473,6 +574,10 @@ public class Base_Class {
          * Create the Account_Class object
          */
         Account_Class account = new Account_Class();
+        
+        //debug
+//        Base_Class base = new Base_Class();
+//        base.getAllAccounts();
 
         /**
          * Instantiate the GUI
