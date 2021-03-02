@@ -5,10 +5,15 @@
  */
 package com.acp.gui;
 
+import com.acp.Email_Engine;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,7 +52,6 @@ public class GUI_Class {
 
     /*
     holding pattern:
-
     editAccountPageInit  = true;
     loyaltyPointsPageInit  = true;
     exportReportsPageInit  = true;
@@ -110,13 +114,43 @@ public class GUI_Class {
         
         //Security_Class security = new Security_Class();
         
+        
         int year = Integer.parseInt(registerPage.getExpirationYearComboBox());
         int month = Integer.parseInt(registerPage.getExpirationMonthComboBox());
         int day = 1;
-                
-        LocalDate ccDate = LocalDate.of(year, month, day);        
-      
+            
+        LocalDate ccDate = LocalDate.of(year, month, day);
         
+        Random rand = new Random();
+        int random=rand.nextInt(999999) + 10;
+                String randString = String.valueOf(random);
+                System.out.println("Here is you verification number: " + randString);
+            //message.setText("Thank you for registering. Here is you verification number: " + confirmationCode);
+        try {
+            Email_Engine.sendMail("creationprotal495@gmail.com",randString);
+            
+            /*
+            HashSet<Integer> set = new HashSet<>();
+            while(set.size()< 1){
+            int random=rand.nextInt(999999) + 10;
+            
+            */
+//        String randString = String.valueOf(random);
+
+//            set.add(random);
+        } catch (Exception ex) {
+            Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
+      /*  }for (int randomNumber:set){
+            System.out.println("Here is you verification number: " + randomNumber);
+            //message.setText("Thank you for registering. Here is you verification number: " + confirmationCode);
+            
+                    Email_Engine.sendMail("creationprotal495@gmail.com", );
+
+        }
+        */
         account.setFirstName(registerPage.getFirstName());
         account.setMiddleInitial(registerPage.getMiddleInitial());
         account.setLastName(registerPage.getLastName());
@@ -133,7 +167,8 @@ public class GUI_Class {
         account.setZipCode(registerPage.getZipCodeField()); 
         account.setCreditCardNumber(registerPage.getCardNumberField()); //Hardcoding until form is updated
         account.setCcDate(ccDate.toString()); //Hardcoding until form is updated    
-        account.setConfirmationCode("000999"); //Replace text with actual confirmation code
+       
+        account.setConfirmationCode(randString); //Replace text with actual confirmation code
 
         
         account.validateFormData();      
@@ -232,7 +267,21 @@ public class GUI_Class {
     }
 
     private void verifyConfirmWindow() {
-        JOptionPane.showMessageDialog(null, "Coming soon");
+        
+//get confirmation code from GUI
+        String inputCode  = confirmationPage.getConfirmationCode();
+        //get account.confirmation code
+        String storedCode = account.getConfirmationCode();
+       
+        //if they match
+        if (storedCode.matches(inputCode)){
+           confirmAccount(); 
+           JOptionPane.showMessageDialog(null, "Account Confirmed");
+
+        }else{
+            JOptionPane.showMessageDialog(null, "Incorrect Confirmation Code");    
+        }
+
     }
 
     private void homeConfirmWindow() {
@@ -368,10 +417,8 @@ public class GUI_Class {
             //System.out.println(security.checkCorrectPassword(password, hashPassword));
 
             /*
-
             This commented out section is the correct implementation for the log in
             once the database is connected and the database calls are built in
-
              */
             ////get account from DB based on username
             //if (account in database){
@@ -410,6 +457,9 @@ public class GUI_Class {
                 customerToolPageInit();
             } else if (validPassword && !accountConfirmed) {
                 JOptionPane.showMessageDialog(null, "Account must be verified!");
+                loginPage.setVisible(false);
+                initConfirmationPage();
+
             } else if (validPassword) {
                 loginPage.setVisible(false);
                 customerToolPageInit();

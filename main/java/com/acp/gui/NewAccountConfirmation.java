@@ -207,5 +207,8 @@ public class NewAccountConfirmation extends javax.swing.JFrame {
         public JButton getVerifyJButton(){
         return verifyJButton;
     }
+public String getConfirmationCode(){
+            return this.confirmationTextField.getText();
+        }
 
 }
