@@ -132,7 +132,8 @@ public class GUI_Class {
         account.setState(registerPage.getStateComboBox());
         account.setZipCode(registerPage.getZipCodeField()); 
         account.setCreditCardNumber(registerPage.getCardNumberField()); //Hardcoding until form is updated
-        account.setCcDate(ccDate.toString()); //Hardcoding until form is updated        
+        account.setCcDate(ccDate.toString()); //Hardcoding until form is updated    
+        account.setConfirmationCode("000999"); //Replace text with actual confirmation code
 
         
         account.validateFormData();      
@@ -322,7 +323,22 @@ public class GUI_Class {
         
         return validPassword;
         
-    }
+    }   
+    
+    private void confirmAccount(){  
+        
+        try {      
+
+            base.confirmAccount(account);
+        
+         } catch(SQLException e){
+             JOptionPane.showMessageDialog(null, e.getMessage());
+             //throw new RuntimeException(e);
+         } catch (Exception e){
+
+         }           
+        
+    }     
 
     private void loginLoginPage() {
 
@@ -330,7 +346,13 @@ public class GUI_Class {
         String username = loginPage.getUsername();
         String password = loginPage.getPassword();
         
-        boolean validPassword = validatePassword(username);            
+        boolean validPassword = validatePassword(username);
+        boolean accountConfirmed = account.getAccountConfirmed();   
+        String confirmationCode = account.getConfirmationCode(); 
+        
+        //debug
+        System.out.println("Account Confirmed? " + accountConfirmed);
+        System.out.println("Confirmation Code: " + confirmationCode);
             
 //            //Get hash for the supplied user name
 //            account = base.getHashedPassword(username);       
@@ -386,7 +408,8 @@ public class GUI_Class {
                     "customer")) && (password.matches("returning"))) {
                 loginPage.setVisible(false);
                 customerToolPageInit();
-                
+            } else if (validPassword && !accountConfirmed) {
+                JOptionPane.showMessageDialog(null, "Account must be verified!");
             } else if (validPassword) {
                 loginPage.setVisible(false);
                 customerToolPageInit();
