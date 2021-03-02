@@ -125,7 +125,7 @@ public class Base_Class {
 
         try {
 
-            sql = conn.prepareStatement("SELECT Account.AccountID AccountID, Login.Password Password FROM CMSC495.Login inner join CMSC495.Account on Account.PersonID = Login.PersonID WHERE LoginName = ?");
+            sql = conn.prepareStatement("SELECT Account.AccountID, Login.Password, Login.Confirmed, Login.ConfirmationCode FROM CMSC495.Login inner join CMSC495.Account on Account.PersonID = Login.PersonID WHERE LoginName = ?");
             sql.setString(1, loginName);
             resultSet = sql.executeQuery();
 
@@ -138,7 +138,16 @@ public class Base_Class {
                 //hashedPassword = resultSet.getString(1);
                 account.setAccountID(resultSet.getInt(1));
                 account.setPassword(resultSet.getString(2));
-
+                //account.setAccountConfirmed(resultSet.getInt(3)); //MySQL does not have a true boolean data type      
+                
+                if (resultSet.getInt(3) == 0){
+                    account.setAccountConfirmed(false);
+                } else {
+                    account.setAccountConfirmed(true);                            
+                }
+                
+                account.setConfirmationCode(resultSet.getString(4)); 
+                        
             }
 
         } catch (SQLException e) {
@@ -231,11 +240,12 @@ public class Base_Class {
                 procedureCall.setString(11, account.getCity()); 
                 procedureCall.setString(12, account.getState()); 
                 procedureCall.setString(13, account.getZipCode());                 
-                procedureCall.registerOutParameter(14, Types.INTEGER); //AccountID
+                procedureCall.setString(14, account.getConfirmationCode());
+                procedureCall.registerOutParameter(15, Types.INTEGER); //AccountID
                 procedureCall.executeQuery();
 
                 // Get the identity value of the new account			
-                int accountID = procedureCall.getInt(14);
+                int accountID = procedureCall.getInt(15);
                 
                 //existingUserCheck(account.getUserName());
                 
@@ -358,6 +368,36 @@ public class Base_Class {
             }
         //}
     }
+    
+    public void confirmAccount(Account_Class account) throws Exception {    
+   
+            Database_Class db = new Database_Class();
+            Connection conn = db.getConnection();
+            CallableStatement procedureCall = null;
+
+            try {           
+
+                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_ConfirmAccount(?, ?) }");
+                procedureCall.setString(1, account.getUserName()); 
+                procedureCall.setInt(2, account.getAccountID()); 
+                procedureCall.executeQuery();              
+
+            } catch (SQLException e) {
+                throw e;
+            } catch (Exception e) {
+                throw e;
+            } finally {
+
+                if (conn != null) {
+                    conn.close();
+                }
+
+                if (procedureCall != null) {
+                    procedureCall.close();
+                }
+
+            }
+    }    
 
 
 
