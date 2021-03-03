@@ -6,10 +6,14 @@
 package com.acp.gui;
 
 import com.acp.Email_Engine;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.logging.Level;
@@ -20,7 +24,7 @@ import java.util.logging.Logger;
  * @author dewal
  */
 public class GUI_Class {
-    
+
     private com.acp.Account_Class account = new com.acp.Account_Class();
     private com.acp.Security_Class security = new com.acp.Security_Class();
     private com.acp.Base_Class base = new com.acp.Base_Class();
@@ -39,7 +43,7 @@ public class GUI_Class {
     //tracks when a window has already been created so redundant event listeners
     //are not created
     private Boolean splashPageInit = false;
-    private Boolean registerPageInit = false; 
+    private Boolean registerPageInit = false;
     private Boolean confirmationPageInit = false;
     private Boolean loginPageInit = false;
     private Boolean ownerToolPageInit = false;
@@ -47,8 +51,8 @@ public class GUI_Class {
     private Boolean editAccountPageInit = false;
     private Boolean loyaltyPointsPageInit = false;
     private Boolean exportReportsPageInit = false;
-    private Boolean changePathPageInit = false;   
-    
+    private Boolean changePathPageInit = false;
+
 
     /*
     holding pattern:
@@ -95,7 +99,7 @@ public class GUI_Class {
 
     //------------------registration page controls-------------
     private void initRegisterPage() {
-        
+
         registerPage.setVisible(true);
         if (!registerPageInit) {
             registerPage.getBackJButton().addActionListener(e -> backRegisterWindow());
@@ -111,46 +115,42 @@ public class GUI_Class {
 
     private void submitRegisterWindow() {
         //update account obj
-        
+
         //Security_Class security = new Security_Class();
-        
-        
         int year = Integer.parseInt(registerPage.getExpirationYearComboBox());
         int month = Integer.parseInt(registerPage.getExpirationMonthComboBox());
         int day = 1;
-            
+
         LocalDate ccDate = LocalDate.of(year, month, day);
-        
+
         Random rand = new Random();
-        int random=rand.nextInt(999999) + 10;
-                String randString = String.valueOf(random);
-                System.out.println("Here is you verification number: " + randString);
-            //message.setText("Thank you for registering. Here is you verification number: " + confirmationCode);
+        int random = rand.nextInt(999999) + 10;
+        String randString = String.valueOf(random);
+        System.out.println("Here is you verification number: " + randString);
+        //message.setText("Thank you for registering. Here is you verification number: " + confirmationCode);
         try {
-            Email_Engine.sendMail("creationprotal495@gmail.com",randString);
-            
+            Email_Engine.sendMail("creationprotal495@gmail.com", randString);
+
             /*
             HashSet<Integer> set = new HashSet<>();
             while(set.size()< 1){
             int random=rand.nextInt(999999) + 10;
             
-            */
+             */
 //        String randString = String.valueOf(random);
-
 //            set.add(random);
         } catch (Exception ex) {
             Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            
-      /*  }for (int randomNumber:set){
+
+        /*  }for (int randomNumber:set){
             System.out.println("Here is you verification number: " + randomNumber);
             //message.setText("Thank you for registering. Here is you verification number: " + confirmationCode);
             
                     Email_Engine.sendMail("creationprotal495@gmail.com", );
 
         }
-        */
+         */
         account.setFirstName(registerPage.getFirstName());
         account.setMiddleInitial(registerPage.getMiddleInitial());
         account.setLastName(registerPage.getLastName());
@@ -164,95 +164,78 @@ public class GUI_Class {
         account.setAddressLine2(registerPage.getAddressLineTwoField());
         account.setCity(registerPage.getCityField());
         account.setState(registerPage.getStateComboBox());
-        account.setZipCode(registerPage.getZipCodeField()); 
+        account.setZipCode(registerPage.getZipCodeField());
         account.setCreditCardNumber(registerPage.getCardNumberField()); //Hardcoding until form is updated
         account.setCcDate(ccDate.toString()); //Hardcoding until form is updated    
-       
+
         account.setConfirmationCode(randString); //Replace text with actual confirmation code
 
-        
-        account.validateFormData();      
+        account.validateFormData();
 
-        if (account.getValidForm()){
+        if (account.getValidForm()) {
 
-            try{
-                
+            try {
+
                 //debug
 //                System.out.println(registerPage.getUserEmail());
 //                System.out.println(registerPage.getUserEmailConfirm());
 //                System.out.println(registerPage.getUserEmail().equals(registerPage.getUserEmailConfirm()));
-                
-                
-                if (!registerPage.getUserEmail().equals(registerPage.getConfirmUserEmail())){
-                    throw new SQLException("Email does not match!");  
+                if (!registerPage.getUserEmail().equals(registerPage.getConfirmUserEmail())) {
+                    throw new SQLException("Email does not match!");
                 }
-                
-                if (!registerPage.getPassword().equals(registerPage.getConfirmPassword())){
-                    throw new SQLException("Password does not match!");  
-                }                
+
+                if (!registerPage.getPassword().equals(registerPage.getConfirmPassword())) {
+                    throw new SQLException("Password does not match!");
+                }
 
                 //check for existing user name
                 base.existingUserCheck(account.getUserName());
                 Boolean returningUser = base.returningUser;
 
-                if(returningUser){      
-                    throw new SQLException("Username already exists!");                                        
-                }                      
+                if (returningUser) {
+                    throw new SQLException("Username already exists!");
+                }
 
-                
-                String hashedPassword = security.performHash(registerPage.getPassword());  
-                
+                String hashedPassword = security.performHash(registerPage.getPassword());
+
                 //hash password
                 account.setPassword(hashedPassword);
 
-                 //Base_Class base = new Base_Class();
-                 base.storeFormDataInSQLDatabase(account);    
+                //Base_Class base = new Base_Class();
+                base.storeFormDataInSQLDatabase(account);
 
-                 //debug
-                 //System.out.println(hashedPassword);
-                 
+                //debug
+                //System.out.println(hashedPassword);
                 //pop up confirmation dialog
                 JOptionPane.showMessageDialog(null, "Registration form submitted!");
 
                 //send to confirmation page
                 initConfirmationPage();
-                registerPage.setVisible(false);     
-                
+                registerPage.setVisible(false);
+
                 //clear form
                 registerPage.clear();
 
-             } catch(SQLException e){
-                 JOptionPane.showMessageDialog(null, e.getMessage());
-                 //throw new RuntimeException(e);
-             } catch (Exception e){
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                //throw new RuntimeException(e);
+            } catch (Exception e) {
 
-             }             
+            }
 
         }
-            
-                
-        
-        
+
         //System.out.println(account.getFirstName());
-        
         //Security_Class security = new Security_Class();
         //String hashedPassword = security.performHash(jPasswordField1.getText());
-      
         //Account_Class ac = new Account_Class(userField.getText(), emailField.getText(), nameField.getText(), "", nameField.getText(), 11112222, "20220221", 234, hashedPassword);
-        
         //get all the info
-        
         //send to DB
         //com.acp.Base_Class.newEntry(account);
-        
-       
-        
-        
         //validate form
         //hash password
         //store user info
         //send email
-
     }
 
     //-----------------------Confirmation Page Controls--------------------
@@ -267,19 +250,19 @@ public class GUI_Class {
     }
 
     private void verifyConfirmWindow() {
-        
+
 //get confirmation code from GUI
-        String inputCode  = confirmationPage.getConfirmationCode();
+        String inputCode = confirmationPage.getConfirmationCode();
         //get account.confirmation code
         String storedCode = account.getConfirmationCode();
-       
-        //if they match
-        if (storedCode.matches(inputCode)){
-           confirmAccount(); 
-           JOptionPane.showMessageDialog(null, "Account Confirmed");
 
-        }else{
-            JOptionPane.showMessageDialog(null, "Incorrect Confirmation Code");    
+        //if they match
+        if (storedCode.matches(inputCode)) {
+            confirmAccount();
+            JOptionPane.showMessageDialog(null, "Account Confirmed");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect Confirmation Code");
         }
 
     }
@@ -305,104 +288,103 @@ public class GUI_Class {
         initSplashPage();
 
     }
-    
-    private void populateEditAccountPage(){
-        
-        try {            
-        
+
+    private void populateEditAccountPage() {
+
+        try {
+
             //get account info from Base_Class
             account = base.getAccount(account.getAccountID());
-            
+
             //Split the credit card expiration date 
-            String dateParts[] = account.getCcDate().split("-");   
+            String dateParts[] = account.getCcDate().split("-");
             String year = dateParts[0];
             String month = dateParts[1];
-            String day = dateParts[2];  
-            
+            String day = dateParts[2];
+
             //populate edit page
             //editAccountPage.setNameField(account.getFirstName() + " " + ((account.getMiddleInitial() == null) ? "" : account.getMiddleInitial()) + " " + account.getLastName());
             editAccountPage.setFirstNameField(account.getFirstName());
             editAccountPage.setMiddleInitialField(account.getMiddleInitial());
-            editAccountPage.setLastNameField( account.getLastName());            
+            editAccountPage.setLastNameField(account.getLastName());
             editAccountPage.setUserField(account.getUserName());
-            editAccountPage.setEmailField(account.getUserEmail());  
-            editAccountPage.setAddressLineOneField(account.getAddressLine1());  
-            editAccountPage.setAddressLineTwoField(account.getAddressLine2());  
-            editAccountPage.setCityField(account.getCity());  
-            editAccountPage.setStateComboBox(account.getState());  
-            editAccountPage.setZipCodeField(account.getZipCode());          
-            editAccountPage.setCardNumberField(account.getCreditCardNumber());  
-            editAccountPage.setExpirationMonthComboBox(month);  
+            editAccountPage.setEmailField(account.getUserEmail());
+            editAccountPage.setAddressLineOneField(account.getAddressLine1());
+            editAccountPage.setAddressLineTwoField(account.getAddressLine2());
+            editAccountPage.setCityField(account.getCity());
+            editAccountPage.setStateComboBox(account.getState());
+            editAccountPage.setZipCodeField(account.getZipCode());
+            editAccountPage.setCardNumberField(account.getCreditCardNumber());
+            editAccountPage.setExpirationMonthComboBox(month);
             editAccountPage.setExpirationYearComboBox(year);
-            editAccountPage.setCVVField("");              
+            editAccountPage.setCVVField("");
 
-        
-         } catch(SQLException e){
-             JOptionPane.showMessageDialog(null, e.getMessage());
-             //throw new RuntimeException(e);
-         } catch (Exception e){
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            //throw new RuntimeException(e);
+        } catch (Exception e) {
 
-         }         
-        
+        }
+
     }
-    
-    private Boolean validatePassword(String userName){
-        
-        boolean validPassword = false;        
-        
-        try {                 
+
+    private Boolean validatePassword(String userName) {
+
+        boolean validPassword = false;
+
+        try {
 
             //String userName = loginPage.getUsername();
             String password = loginPage.getPassword();
 
             //Get hash for the supplied user name
-            account = base.getHashedPassword(userName);       
+            account = base.getHashedPassword(userName);
             String hashPassword = account.getPassword();
 
             //System.out.println(account.getAccountID());
             //validate password
-            validPassword = security.checkCorrectPassword(password, hashPassword);               
-        
-         } catch(SQLException e){
-             JOptionPane.showMessageDialog(null, e.getMessage());
-             //throw new RuntimeException(e);
-         } catch (Exception e){
+            validPassword = security.checkCorrectPassword(password, hashPassword);
 
-         }   
-        
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            //throw new RuntimeException(e);
+        } catch (Exception e) {
+
+        }
+
         return validPassword;
-        
-    }   
-    
-    private void confirmAccount(){  
-        
-        try {      
+
+    }
+
+    private void confirmAccount() {
+
+        try {
 
             base.confirmAccount(account);
-        
-         } catch(SQLException e){
-             JOptionPane.showMessageDialog(null, e.getMessage());
-             //throw new RuntimeException(e);
-         } catch (Exception e){
 
-         }           
-        
-    }     
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            //throw new RuntimeException(e);
+        } catch (Exception e) {
+
+        }
+
+    }
 
     private void loginLoginPage() {
 
         //get inputs from GUI
         String username = loginPage.getUsername();
         String password = loginPage.getPassword();
-        
+
         boolean validPassword = validatePassword(username);
-        boolean accountConfirmed = account.getAccountConfirmed();   
-        String confirmationCode = account.getConfirmationCode(); 
-        
+        boolean accountConfirmed = account.getAccountConfirmed();
+        String confirmationCode = account.getConfirmationCode();
+
         //debug
         System.out.println("Account Confirmed? " + accountConfirmed);
         System.out.println("Confirmation Code: " + confirmationCode);
-            
+
 //            //Get hash for the supplied user name
 //            account = base.getHashedPassword(username);       
 //            String hashPassword = account.getPassword();
@@ -411,71 +393,68 @@ public class GUI_Class {
 //            //System.out.println(account.getAccountID());
 //            //validate password
 //            Boolean validPassword = security.checkCorrectPassword(password, hashPassword);         
-            
-            //debug
-            //System.out.println(hashPassword);                
-            //System.out.println(security.checkCorrectPassword(password, hashPassword));
+        //debug
+        //System.out.println(hashPassword);                
+        //System.out.println(security.checkCorrectPassword(password, hashPassword));
 
-            /*
+        /*
             This commented out section is the correct implementation for the log in
             once the database is connected and the database calls are built in
-             */
-            ////get account from DB based on username
-            //if (account in database){
-            //account = retrieved_account;
-            //}else JOptionPane.showMessageDialog(null, "Username/password invalid");
-            //get hash from account
-            //String hash = account.password;
-            //pass entered password against stored hash
-    //        if (Security_Class.checkCorrectPassword(password, hash)) {
-    //            if (account.confirmed) {
-    //                if account.owner   {//sends to owner tools
-    //                    loginPage.setVisible(false);
-    //                    ownerToolPageInit();
-    //                } else {//sends to cusomter tools
-    //                    loginPage.setVisible(false);
-    //                    customerToolPageInit();
-    //                }
-    //            } else {//if account is not confirmed yet, send to confirmation page
-    //                initConfirmationPage();
-    //                loginPage.setVisible(false);
-    //            }
-    //        } else {//if password/hash is not matched
-    //            JOptionPane.showMessageDialog(null, "Username/password invalid");
-    //        }
-            /*
+         */
+        ////get account from DB based on username
+        //if (account in database){
+        //account = retrieved_account;
+        //}else JOptionPane.showMessageDialog(null, "Username/password invalid");
+        //get hash from account
+        //String hash = account.password;
+        //pass entered password against stored hash
+        //        if (Security_Class.checkCorrectPassword(password, hash)) {
+        //            if (account.confirmed) {
+        //                if account.owner   {//sends to owner tools
+        //                    loginPage.setVisible(false);
+        //                    ownerToolPageInit();
+        //                } else {//sends to cusomter tools
+        //                    loginPage.setVisible(false);
+        //                    customerToolPageInit();
+        //                }
+        //            } else {//if account is not confirmed yet, send to confirmation page
+        //                initConfirmationPage();
+        //                loginPage.setVisible(false);
+        //            }
+        //        } else {//if password/hash is not matched
+        //            JOptionPane.showMessageDialog(null, "Username/password invalid");
+        //        }
+        /*
     
     This is only a placeholder for log in function. 
-             */
-            if ((username.matches(
-                    "owner")) && (password.matches("admin"))) {
-                loginPage.setVisible(false);
-                ownerToolPageInit();
-            } else if ((username.matches(
-                    "customer")) && (password.matches("returning"))) {
-                loginPage.setVisible(false);
-                customerToolPageInit();
-            } else if (validPassword && !accountConfirmed) {
-                JOptionPane.showMessageDialog(null, "Account must be verified!");
-                loginPage.setVisible(false);
-                initConfirmationPage();
+         */
+        if ((username.matches(
+                "owner")) && (password.matches("admin"))) {
+            loginPage.setVisible(false);
+            ownerToolPageInit();
+        } else if ((username.matches(
+                "customer")) && (password.matches("returning"))) {
+            loginPage.setVisible(false);
+            customerToolPageInit();
+        } else if (validPassword && !accountConfirmed) {
+            JOptionPane.showMessageDialog(null, "Account must be verified!");
+            loginPage.setVisible(false);
+            initConfirmationPage();
 
-            } else if (validPassword) {
-                loginPage.setVisible(false);
-                customerToolPageInit();
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Username/password invalid");
-            }         
+        } else if (validPassword) {
+            loginPage.setVisible(false);
+            customerToolPageInit();
 
-            //Popo
-            populateEditAccountPage();
+        } else {
+            JOptionPane.showMessageDialog(null, "Username/password invalid");
+        }
 
-            //clear field values
-            loginPage.clear();
-        
- 
-        
+        //Popo
+        populateEditAccountPage();
+
+        //clear field values
+        loginPage.clear();
+
     }
 //-----------------------Owner Page Controls--------------------
 
@@ -563,8 +542,25 @@ public class GUI_Class {
     }
 
     private void allExportPage() {
-        //export all users from DB in CSV
-        JOptionPane.showMessageDialog(null, "Coming soon - Export report of all users");
+        try {
+            //export all users from DB in CSV
+
+            com.acp.Account_Class[] allReports = com.acp.Base_Class.getAllAccounts();
+            JOptionPane.showMessageDialog(null, "Coming soon - Export report of all users");
+
+            StringBuilder sb = new StringBuilder();
+            // Append strings from array
+            for (int i = 0; i < allReports.length; i++) {
+                sb.append(allReports[i].toString());
+                sb.append("\n");
+            }
+            String content = sb.toString();
+
+            writeReport(content, "allUsersReport"+getDate());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error - Could not connect to Database");
+            Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void singleExportPage() {
@@ -582,6 +578,29 @@ public class GUI_Class {
 
     private void backExportPage() {
         exportReportsPage.setVisible(false);
+    }
+
+    public static void writeReport(String contents, String filename) {
+        BufferedWriter br = null;
+        try {
+            br = new BufferedWriter(new FileWriter(filename + ".csv"));
+            br.write(contents);
+            br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                br.close();
+            } catch (IOException ex) {
+                Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public static String getDate() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss-MM-dd-yyyy");
+        return sdf.format(date);
     }
 
     //-----------------------Edit Loyalty Points Page Controls--------------------
@@ -626,7 +645,7 @@ public class GUI_Class {
     }
 
     private void editCustomerPage() {
-        editAccountPageInit();        
+        editAccountPageInit();
     }
 
     private void settingsCustomerPage() {
@@ -639,7 +658,7 @@ public class GUI_Class {
     }
 
     //-----------------------Edit Account Page Controls--------------------
-    private void editAccountPageInit() {                
+    private void editAccountPageInit() {
         editAccountPage.setVisible(true);
         if (!editAccountPageInit) {
             editAccountPage.getConfirmJButton().addActionListener(e -> confirmEditAccountPage());
@@ -653,21 +672,18 @@ public class GUI_Class {
 //        String fullName = editAccountPage.getNameField().trim();
 //        String firstName = fullName.substring(0,fullName.indexOf(" ")).trim();
 //        String lastName = fullName.substring(firstName.length(), fullName.length()).trim();   
-
-        
         //setExpirationMonthComboBox
         //getExpirationYearComboBox
         int year = Integer.parseInt(editAccountPage.getExpirationYearComboBox());
         int month = Integer.parseInt(editAccountPage.getExpirationMonthComboBox());
         int day = 1;
-                
+
         LocalDate ccDate = LocalDate.of(year, month, day);
 //        SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
 //        java.util.Date date = sdf1.parse(ccDate);        
-        
+
         //debug
         //System.out.println(ccDate);
-               
         account.setFirstName(editAccountPage.getFirstNameField());
         account.setMiddleInitial(editAccountPage.getMiddleInitialField());
         account.setLastName(editAccountPage.getLastNameField());
@@ -677,33 +693,30 @@ public class GUI_Class {
         account.setCreditCardNumber(editAccountPage.getCardNumberField()); //Hardcoding until form is updated
         account.setCcDate(ccDate.toString()); //Hardcoding until form is updated
         //account.setCvvCode(234);       //Not storing credit card CCV anymore.
-        
+
         account.setAddressLine1(editAccountPage.getAddressLineOneField());
         account.setAddressLine2(editAccountPage.getAddressLineTwoField());
         account.setCity(editAccountPage.getCityField());
         account.setState(editAccountPage.getStateComboBox());
-        account.setZipCode(editAccountPage.getZipCodeField());                    
-        
+        account.setZipCode(editAccountPage.getZipCodeField());
+
         try {
 
             //Update account info
-            base.updateFormDataInSQLDatabase(account); 
-
+            base.updateFormDataInSQLDatabase(account);
 
             JOptionPane.showMessageDialog(null, "Account Updated");
             editAccountPage.setVisible(false);
-            
-            //Refresh fields to make sure information was saved to thedatabase
-            populateEditAccountPage();            
-        
-         } catch(SQLException e){
-             JOptionPane.showMessageDialog(null, e.getMessage());
-             //throw new RuntimeException(e);
-         } catch (Exception e){
 
-         } 
-        
-        
+            //Refresh fields to make sure information was saved to thedatabase
+            populateEditAccountPage();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            //throw new RuntimeException(e);
+        } catch (Exception e) {
+
+        }
 
     }
 
