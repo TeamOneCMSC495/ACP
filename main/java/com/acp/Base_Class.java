@@ -507,7 +507,7 @@ public class Base_Class {
 
     }   
      
-     public Account_Class[] getAllAccounts() throws Exception {
+     public static Account_Class[] getAllAccounts() throws Exception {
 
         Database_Class db = new Database_Class();
         Connection conn = db.getConnection();
