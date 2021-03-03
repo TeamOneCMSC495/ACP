@@ -226,7 +226,7 @@ public class Base_Class {
                 java.util.Date date = sdf1.parse(expirationDate);
                 java.sql.Date sql_ExpirationDate = new java.sql.Date(date.getTime());                 
 
-                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertAccount(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
+                procedureCall = conn.prepareCall("{ CALL CMSC495.usp_InsertAccount(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
                 procedureCall.setString(1, account.getUserName());
                 procedureCall.setString(2, account.getPassword());
                 procedureCall.setString(3, account.getFirstName());
