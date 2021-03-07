@@ -131,26 +131,10 @@ public class GUI_Class {
         try {
             Email_Engine.sendMail("creationprotal495@gmail.com", randString);
 
-            /*
-            HashSet<Integer> set = new HashSet<>();
-            while(set.size()< 1){
-            int random=rand.nextInt(999999) + 10;
-            
-             */
-//        String randString = String.valueOf(random);
-//            set.add(random);
         } catch (Exception ex) {
             Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        /*  }for (int randomNumber:set){
-            System.out.println("Here is you verification number: " + randomNumber);
-            //message.setText("Thank you for registering. Here is you verification number: " + confirmationCode);
-            
-                    Email_Engine.sendMail("creationprotal495@gmail.com", );
-
-        }
-         */
         account.setFirstName(registerPage.getFirstName());
         account.setMiddleInitial(registerPage.getMiddleInitial());
         account.setLastName(registerPage.getLastName());
@@ -168,7 +152,7 @@ public class GUI_Class {
         account.setCreditCardNumber(registerPage.getCardNumberField()); //Hardcoding until form is updated
         account.setCcDate(ccDate.toString()); //Hardcoding until form is updated    
 
-        account.setConfirmationCode(randString); //Replace text with actual confirmation code
+        account.setConfirmationCode(randString);
 
         account.validateFormData();
 
@@ -202,20 +186,25 @@ public class GUI_Class {
                 account.setPassword(hashedPassword);
 
                 //Base_Class base = new Base_Class();
-                base.storeFormDataInSQLDatabase(account);
-
+                account.setAccountID(base.storeFormDataInSQLDatabase(account));
+                
+                //next few lines retrieve userID 
+                
                 //debug
                 //System.out.println(hashedPassword);
                 //pop up confirmation dialog
                 JOptionPane.showMessageDialog(null, "Registration form submitted!");
 
                 //send to confirmation page
-                initConfirmationPage();
+                System.out.println(account.getConfirmationCode());
+                initConfirmationPage(account.getConfirmationCode());
                 registerPage.setVisible(false);
 
                 //clear form
                 registerPage.clear();
 
+                //comment out for testing
+                //Email_Engine.sendMail("creationprotal495@gmail.com", randString);                
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 //throw new RuntimeException(e);
@@ -239,25 +228,28 @@ public class GUI_Class {
     }
 
     //-----------------------Confirmation Page Controls--------------------
-    private void initConfirmationPage() {
+    private void initConfirmationPage(String storedCode) {
 
         confirmationPage.setVisible(true);
         if (!confirmationPageInit) {
+            //String storedCode = account.getConfirmationCode();
             confirmationPage.getHomeJButton().addActionListener(e -> homeConfirmWindow());
-            confirmationPage.getVerifyJButton().addActionListener(e -> verifyConfirmWindow());
+            confirmationPage.getVerifyJButton().addActionListener(e -> verifyConfirmWindow(storedCode)); //passing confirmation code to method
         }
+        //debug
+        //System.out.println(account.getConfirmationCode());
         confirmationPageInit = true;
     }
 
-    private void verifyConfirmWindow() {
+    private void verifyConfirmWindow(String storedCode) {
 
-//get confirmation code from GUI
+        //get confirmation code from GUI
         String inputCode = confirmationPage.getConfirmationCode();
-        //get account.confirmation code
-        String storedCode = account.getConfirmationCode();
 
         //if they match
         if (storedCode.matches(inputCode)) {
+            System.out.println(account.getUserName());
+            System.out.println(account.getAccountID());
             confirmAccount();
             JOptionPane.showMessageDialog(null, "Account Confirmed");
 
@@ -376,10 +368,16 @@ public class GUI_Class {
         //get inputs from GUI
         String username = loginPage.getUsername();
         String password = loginPage.getPassword();
+        boolean accountConfirmed = false;
+        String confirmationCode = "";
 
         boolean validPassword = validatePassword(username);
-        boolean accountConfirmed = account.getAccountConfirmed();
-        String confirmationCode = account.getConfirmationCode();
+
+        //Bypass validation check on owner & customer account
+        if (!username.equals("owner") && !username.equals("customer")) {
+            accountConfirmed = account.getAccountConfirmed();
+            confirmationCode = account.getConfirmationCode();
+        }
 
         //debug
         System.out.println("Account Confirmed? " + accountConfirmed);
@@ -439,7 +437,7 @@ public class GUI_Class {
         } else if (validPassword && !accountConfirmed) {
             JOptionPane.showMessageDialog(null, "Account must be verified!");
             loginPage.setVisible(false);
-            initConfirmationPage();
+            initConfirmationPage(confirmationCode);
 
         } else if (validPassword) {
             loginPage.setVisible(false);
@@ -556,7 +554,7 @@ public class GUI_Class {
             }
             String content = sb.toString();
 
-            writeReport(content, "allUsersReport"+getDate());
+            writeReport(content, "allUsersReport" + getDate());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error - Could not connect to Database");
             Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
