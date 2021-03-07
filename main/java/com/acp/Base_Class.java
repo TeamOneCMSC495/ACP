@@ -198,7 +198,7 @@ public class Base_Class {
     }
 
    // public void storeFormDataInSQLDatabase(String loginName, String passWord, String firstName, String lastName, String middleInitial, String ccNumber, Date ccExpirationDate, String email) throws Exception {
-    public void storeFormDataInSQLDatabase(Account_Class account) throws Exception {    
+    public int storeFormDataInSQLDatabase(Account_Class account) throws Exception {    
         //if (validForm == true) {
             // send userName to the database;
             // send loginCount  to the database;
@@ -252,6 +252,7 @@ public class Base_Class {
                 //debug
                 System.out.println("AccountID: " + accountID);
                 System.out.println("Record Created? " + returningUser);
+                return accountID;
                 
 //                sql = conn.prepareStatement("select PersonID from account WHERE AccountID = ?");
 //                sql.setString(1, accountID);                
@@ -277,9 +278,10 @@ public class Base_Class {
                 if (procedureCall != null) {
                     procedureCall.close();
                 }
-
+                
             }
         //}
+        
     }
     
 
