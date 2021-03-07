@@ -81,16 +81,16 @@ public class Account_Class {
         if (getReturningUser() == false) {
             if (getFirstName().length() == 0) {
                 JOptionPane.showMessageDialog(null, "Invalid first name, first name cannot be blank");
-                setRejectForm((Boolean) true);                
+                setRejectForm((Boolean) true);
             } else if (getFirstName().length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid first name, first name cannot be more than 128 characters");
-                setRejectForm((Boolean) true);             
+                setRejectForm((Boolean) true);
             } else if (getMiddleInitial().length() >= 2) {
                 JOptionPane.showMessageDialog(null, "Invalid middle initial, middle initial cannot be more than 1 character");
                 setRejectForm((Boolean) true);
             } else if (getLastName().length() == 0) {
                 JOptionPane.showMessageDialog(null, "Invalid last name, last name cannot be blank");
-                setRejectForm((Boolean) true);                
+                setRejectForm((Boolean) true);
             } else if (getLastName().length() >= 129) {
                 JOptionPane.showMessageDialog(null, "Invalid last name, last name cannot be more than 128 characters");
                 setRejectForm((Boolean) true);
@@ -147,7 +147,7 @@ public class Account_Class {
             }
 
         }
-        
+
         //debug
 //        System.out.println(getPassword());
 //        System.out.println(getPassword().length());
@@ -355,7 +355,7 @@ public class Account_Class {
     public void setValidForm(Boolean validForm) {
         this.validForm = validForm;
     }
-    
+
     /**
      * @return the accountID
      */
@@ -382,8 +382,8 @@ public class Account_Class {
      */
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
-    }  
-    
+    }
+
     /**
      * @return the addressLine2
      */
@@ -396,8 +396,8 @@ public class Account_Class {
      */
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
-    }   
-    
+    }
+
     /**
      * @return the city
      */
@@ -410,8 +410,8 @@ public class Account_Class {
      */
     public void setCity(String city) {
         this.city = city;
-    }   
-    
+    }
+
     /**
      * @return the state
      */
@@ -424,8 +424,8 @@ public class Account_Class {
      */
     public void setState(String state) {
         this.state = state;
-    }  
-    
+    }
+
     /**
      * @return the zipCode
      */
@@ -438,18 +438,35 @@ public class Account_Class {
      */
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }  
-    
+    }
+
+    @Override
     public String toString() {
-        return returningUser + "," + accountID + "," + userName + "," 
-                + firstName + "," + middleInitial + "," + lastName + "," + userEmail 
-                + "," + loginCount + "," + loyaltyPoints + "," + localDateString + 
-                "," + localTimeString + "," + rejectForm + "," + creditCardNumber
-                + "," + "ccDate" + "," + cvvCode + "," + password + "," + validForm 
-                + "," + addressLine1 + "," + addressLine2 + "," + city + "," + 
-                state + "," + zipCode;
-    }    
-    
+        return returningUser + "," + accountID + "," + userName + ","
+                + firstName + "," + middleInitial + "," + lastName + "," + userEmail
+                + "," + loginCount + "," + loyaltyPoints + "," + localDateString
+                + "," + localTimeString + "," + rejectForm + "," + creditCardNumber
+                + "," + "ccDate" + "," + cvvCode + "," + password + "," + validForm
+                + "," + addressLine1 + "," + addressLine2 + "," + city + ","
+                + state + "," + zipCode;
+    }
+
+    public String toStringReportFormat() {
+        //return blank line output instead of "Null" for second address line
+        String addressLineTwo;
+        if (addressLine2 == null) {
+            addressLineTwo = "";
+        } else addressLineTwo = addressLine2;
+        
+        return firstName + "," + middleInitial + "," + lastName + ","
+                + accountID + "," + userName + "," + userEmail + ","
+                + loginCount + "," + loyaltyPoints + "," //currently always "0"
+                + creditCardNumber.substring(12) + "," + //trims off leading asterisks from masked CCN
+                ccDate + ","
+                + addressLine1 + "," + addressLineTwo + "," + city + "," + state + ","
+                + zipCode;
+    }
+
     /**
      * @return the accountConfirmed
      */
@@ -462,8 +479,8 @@ public class Account_Class {
      */
     public void setAccountConfirmed(Boolean confirmed) {
         this.accountConfirmed = confirmed;
-    }    
-    
+    }
+
     /**
      * @return the confirmationCode
      */
@@ -476,8 +493,6 @@ public class Account_Class {
      */
     public void setConfirmationCode(String confirmationCode) {
         this.confirmationCode = confirmationCode;
-    }      
-
-    
+    }
 
 }
