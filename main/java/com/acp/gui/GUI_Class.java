@@ -7,17 +7,20 @@ package com.acp.gui;
 
 import com.acp.Email_Engine;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -28,6 +31,8 @@ public class GUI_Class {
     private com.acp.Account_Class account = new com.acp.Account_Class();
     private com.acp.Security_Class security = new com.acp.Security_Class();
     private com.acp.Base_Class base = new com.acp.Base_Class();
+
+    private String path = System.getProperty("user.dir");
 
     private AccountCreationPortal splashPage;
     private Register registerPage;
@@ -187,9 +192,8 @@ public class GUI_Class {
 
                 //Base_Class base = new Base_Class();
                 account.setAccountID(base.storeFormDataInSQLDatabase(account));
-                
+
                 //next few lines retrieve userID 
-                
                 //debug
                 //System.out.println(hashedPassword);
                 //pop up confirmation dialog
@@ -466,6 +470,7 @@ public class GUI_Class {
             ownerToolPage.getSettingsJButton().addActionListener(e -> settingsOwnerPage());
             ownerToolPage.getLogoutJButton().addActionListener(e -> logoutOwnerPage());
         }
+        ownerToolPage.setPathLabel(path);
         ownerToolPageInit = true;
     }
 
@@ -506,18 +511,30 @@ public class GUI_Class {
             changePathPage.getUpdateJButton().addActionListener(e -> updatePathPage());
             changePathPage.getCancelJButton().addActionListener(e -> cancelPathPage());
         }
+        changePathPage.setPathLabel(path);
         changePathPageInit = true;
+        
 
     }
 
     private void browsePathPage() {
-        JOptionPane.showMessageDialog(null, "Coming soon");
-        //get changePathPage text
-        //set export path
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new java.io.File(".")); // start at application current directory
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int returnVal = fc.showSaveDialog(changePathPage);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File selectedFolder = fc.getSelectedFile();
+            path = selectedFolder.getPath();
+        }
+
+        JOptionPane.showMessageDialog(null, "New path: "+path);
+        ownerToolPage.setPathLabel(path);
+
         changePathPage.setVisible(false);
     }
 
     private void updatePathPage() {
+        
         JOptionPane.showMessageDialog(null, "Path Updated");
 
     }
@@ -543,19 +560,31 @@ public class GUI_Class {
         try {
             //export all users from DB in CSV
 
+            //populate array w/ all account_class objects in database
             com.acp.Account_Class[] allReports = com.acp.Base_Class.getAllAccounts();
-            JOptionPane.showMessageDialog(null, "Coming soon - Export report of all users");
 
+            //Build report
             StringBuilder sb = new StringBuilder();
+
+            //Add headers
+            sb.append("First Name,Middle Initial,Last Name,Account Number,"
+                    + "User Name,Email Address,Login Count,Loyalty Points,"
+                    + "CCN last 4,CC Exp Date,Address Line 1,"
+                    + "Address Line 2,City,State,Zip");
+            sb.append("\n");
+
             // Append strings from array
             for (int i = 0; i < allReports.length; i++) {
-                sb.append(allReports[i].toString());
+                sb.append(allReports[i].toStringReportFormat());
                 sb.append("\n");
             }
             String content = sb.toString();
+            String filename = "allUsersReport" + getDate();
 
-            writeReport(content, "allUsersReport" + getDate());
-        } catch (Exception ex) {
+            //write report
+            writeReport(path, content, filename);
+            JOptionPane.showMessageDialog(null, "Report saved as " + filename);
+        } catch (Exception ex) {//will also catch IO errors. TODO: separate catch blocks
             JOptionPane.showMessageDialog(null, "Error - Could not connect to Database");
             Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -564,8 +593,69 @@ public class GUI_Class {
     private void singleExportPage() {
         //open user search
         //export single user from DB in CSV
-        JOptionPane.showMessageDialog(null, "Coming soon - Export report of single user");
 
+        try {
+            //export all users from DB in CSV
+
+            //populate array w/ all account_class objects in database
+            com.acp.Account_Class[] allReports = com.acp.Base_Class.getAllAccounts();
+
+            String[] allUserNames = new String[allReports.length];
+            String[] allAccountNumbers = new String[allReports.length];
+
+            for (int i = 0; i < allReports.length; i++) {
+                allUserNames[i] = allReports[i].getUserName();
+                allAccountNumbers[i] = String.valueOf(allReports[i].getAccountID());
+            }
+
+            String searchQuery;
+            Boolean searching = true;
+            Boolean cancelled = false;
+            int nameIndex = 0;
+            int accountNumberIndex = 0;
+
+            while (searching) {
+                searchQuery = JOptionPane.showInputDialog("Username or account ID for report:");
+                nameIndex = Arrays.asList(allUserNames).indexOf(searchQuery);
+                accountNumberIndex = Arrays.asList(allAccountNumbers).indexOf(searchQuery);
+                JOptionPane.showMessageDialog(null,
+                        "Name index: " + nameIndex
+                        + "\nID Index: " + accountNumberIndex);
+                if (nameIndex > 0 || accountNumberIndex > 0) {
+                    searching = false;
+                }
+                if (searchQuery == null) {
+                    searching = false;
+                    cancelled = true;
+                    JOptionPane.showMessageDialog(null, "Cancelled");
+                }
+            }
+
+            if (!cancelled) {
+
+                //Build report
+                StringBuilder sb = new StringBuilder();
+
+                //Add headers
+                sb.append("First Name,Middle Initial,Last Name,Account Number,"
+                        + "User Name,Email Address,Login Count,Loyalty Points,"
+                        + "CCN last 4,CC Exp Date,Address Line 1,"
+                        + "Address Line 2,City,State,Zip");
+                sb.append("\n");
+                sb.append(allReports[Math.max(nameIndex, accountNumberIndex)].toStringReportFormat());
+                sb.append("\n");
+
+                String content = sb.toString();
+                String filename = "singleUserReport" + getDate();
+
+                //write report
+                writeReport(path, content, filename);
+                JOptionPane.showMessageDialog(null, "Report saved as " + filename);
+            }
+        } catch (Exception ex) {//will also catch IO errors. TODO: separate catch blocks
+            JOptionPane.showMessageDialog(null, "Error - Could not connect to Database");
+            Logger.getLogger(GUI_Class.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void tailoredExportPage() {
@@ -578,10 +668,11 @@ public class GUI_Class {
         exportReportsPage.setVisible(false);
     }
 
-    public static void writeReport(String contents, String filename) {
+    public static void writeReport(String path, String contents, String filename) {
         BufferedWriter br = null;
         try {
-            br = new BufferedWriter(new FileWriter(filename + ".csv"));
+
+            br = new BufferedWriter(new FileWriter(new File(path, filename + ".csv")));
             br.write(contents);
             br.close();
         } catch (IOException ex) {
@@ -616,11 +707,11 @@ public class GUI_Class {
     private void searchLoyaltyPage() {
         //search DB for account number
         //if found - set label w/ points
-        JOptionPane.showMessageDialog(null, "User not found");
+        JOptionPane.showMessageDialog(null, "Coming Soon");
     }
 
     private void updateLoyaltyPage() {
-        JOptionPane.showMessageDialog(null, "Points updated");
+        JOptionPane.showMessageDialog(null, "Coming Soon");
         //update DB entry
         //update label in jframe
     }

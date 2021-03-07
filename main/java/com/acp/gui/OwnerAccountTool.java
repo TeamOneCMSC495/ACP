@@ -35,7 +35,7 @@ public class OwnerAccountTool extends javax.swing.JFrame {
         lookupJButton = new javax.swing.JButton();
         loyaltyJButton = new javax.swing.JButton();
         settingsJButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        pathLabel = new javax.swing.JLabel();
         ownerLabel = new javax.swing.JLabel();
         logoutJButton = new javax.swing.JButton();
 
@@ -76,7 +76,7 @@ public class OwnerAccountTool extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Path: C/Users/Owner/Program Files/ACP/Reports");
+        pathLabel.setText("Path: C/Users/Owner/Program Files/ACP/Reports");
 
         ownerLabel.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
         ownerLabel.setText("Owner Account Tools");
@@ -97,14 +97,16 @@ public class OwnerAccountTool extends javax.swing.JFrame {
                     .addComponent(settingsJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ownerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(102, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(logoutJButton))))
+                        .addComponent(logoutJButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ownerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 115, Short.MAX_VALUE))
+                            .addComponent(pathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {exportJButton, lookupJButton, loyaltyJButton, pathJButton, settingsJButton});
@@ -116,7 +118,7 @@ public class OwnerAccountTool extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pathJButton)
-                    .addComponent(jLabel1))
+                    .addComponent(pathLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(exportJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -190,12 +192,12 @@ public class OwnerAccountTool extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exportJButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton logoutJButton;
     private javax.swing.JButton lookupJButton;
     private javax.swing.JButton loyaltyJButton;
     private javax.swing.JLabel ownerLabel;
     private javax.swing.JButton pathJButton;
+    private javax.swing.JLabel pathLabel;
     private javax.swing.JButton settingsJButton;
     // End of variables declaration//GEN-END:variables
 
@@ -222,5 +224,9 @@ public class OwnerAccountTool extends javax.swing.JFrame {
 
     public JButton getLogoutJButton() {
         return logoutJButton;
+    }
+    
+    public void setPathLabel(String path){
+        pathLabel.setText(path);
     }
 }

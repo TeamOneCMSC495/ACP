@@ -30,9 +30,8 @@ public class ChangeExportPathJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         ownerLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        pathLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         browseJButton = new javax.swing.JButton();
         updateJButton = new javax.swing.JButton();
         cancelJButton = new javax.swing.JButton();
@@ -40,15 +39,9 @@ public class ChangeExportPathJFrame extends javax.swing.JFrame {
         ownerLabel.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
         ownerLabel.setText("Set Export Path");
 
-        jLabel1.setText("Current Path: C/Users/Owner/Program Files/ACP/Reports");
+        pathLabel.setText("Current Path: C/Users/Owner/Program Files/ACP/Reports");
 
-        jLabel2.setText("New Path:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Choose Path:");
 
         browseJButton.setText("Browse");
         browseJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -82,29 +75,25 @@ public class ChangeExportPathJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pathLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(browseJButton))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(updateJButton)
                         .addGap(18, 18, 18)
-                        .addComponent(cancelJButton)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                        .addComponent(cancelJButton))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(ownerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addComponent(pathLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(browseJButton))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -115,10 +104,6 @@ public class ChangeExportPathJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void browseJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseJButtonActionPerformed
         // TODO add your handling code here:
@@ -175,14 +160,16 @@ public class ChangeExportPathJFrame extends javax.swing.JFrame {
         return cancelJButton;
     }
 
+    public void setPathLabel(String path) {
+        pathLabel.setText(path);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseJButton;
     private javax.swing.JButton cancelJButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel ownerLabel;
+    private javax.swing.JLabel pathLabel;
     private javax.swing.JButton updateJButton;
     // End of variables declaration//GEN-END:variables
 }
