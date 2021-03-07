@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Database setup `CMSC495`
+--
+
+DROP SCHEMA IF EXISTS CMSC495;
+CREATE SCHEMA CMSC495;
+USE CMSC495;
+
+--
 -- Table structure for table `account`
 --
 
